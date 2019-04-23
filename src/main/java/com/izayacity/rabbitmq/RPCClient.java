@@ -6,6 +6,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -30,9 +31,9 @@ public class RPCClient implements AutoCloseable {
 		try (RPCClient fibonacciRpc = new RPCClient()) {
 			for (int i = 0; i < 32; i++) {
 				String i_str = Integer.toString(i);
-				System.out.println(" [x] Requesting fib(" + i_str + ")");
+				System.out.println(LocalTime.now().toString() + " - [x] Requesting fib(" + i_str + ")");
 				String response = fibonacciRpc.call(i_str);
-				System.out.println(" [.] Got '" + response + "'");
+				System.out.println(LocalTime.now().toString() + " - [.] Got '" + response + "'");
 			}
 		} catch (IOException | TimeoutException | InterruptedException e) {
 			e.printStackTrace();
@@ -41,6 +42,7 @@ public class RPCClient implements AutoCloseable {
 
 	public String call(String message) throws IOException, InterruptedException {
 		final String corrId = UUID.randomUUID().toString();
+		System.out.println(LocalTime.now().toString() + " - channel id: " + channel.getChannelNumber() + " and corrId: " + corrId);
 
 		String replyQueueName = channel.queueDeclare().getQueue();
 		AMQP.BasicProperties props = new AMQP.BasicProperties
@@ -61,6 +63,8 @@ public class RPCClient implements AutoCloseable {
 		});
 
 		String result = response.take();
+		System.out.println(LocalTime.now().toString() + " - queue name of message  " + message + ": " + replyQueueName);
+		System.out.println(LocalTime.now().toString() + " - consumer tag of message  " + message + ": " + ctag);
 		channel.basicCancel(ctag);
 		return result;
 	}

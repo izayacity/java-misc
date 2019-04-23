@@ -2,6 +2,8 @@ package com.izayacity.rabbitmq;
 
 import com.rabbitmq.client.*;
 
+import java.time.LocalTime;
+
 public class RPCServer {
 
 	private static final String RPC_QUEUE_NAME = "rpc_queue";
@@ -39,10 +41,10 @@ public class RPCServer {
 					String message = new String(delivery.getBody(), "UTF-8");
 					int n = Integer.parseInt(message);
 
-					System.out.println(" [.] fib(" + message + ")");
+					System.out.println(LocalTime.now().toString() + " - [.] fib(" + message + ")");
 					response += fib(n);
 				} catch (RuntimeException e) {
-					System.out.println(" [.] " + e.toString());
+					System.out.println(LocalTime.now().toString() + " - [.] " + e.toString());
 				} finally {
 					channel.basicPublish("", delivery.getProperties().getReplyTo(), replyProps, response.getBytes("UTF-8"));
 					channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);

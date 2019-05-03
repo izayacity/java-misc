@@ -44,13 +44,15 @@ public class ConsistentHash2 {
 
         ch.confirmSelect();
 
-
+        long time1 = System.currentTimeMillis();
         for (int i = 0; i < 100000; i++) {
             AMQP.BasicProperties.Builder bldr = new AMQP.BasicProperties.Builder();
             Map<String, Object> hdrs = new HashMap<>();
             hdrs.put("hash-on", String.valueOf(i));
             ch.basicPublish(EXCHANGE, "", bldr.headers(hdrs).build(), "".getBytes("UTF-8"));
         }
+        long time2 = System.currentTimeMillis();
+        System.out.println("Solution 2 used " + (time2 - time1) + " ms");
 
         ch.waitForConfirmsOrDie(10000);
 

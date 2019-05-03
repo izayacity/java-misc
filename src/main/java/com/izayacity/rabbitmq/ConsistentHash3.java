@@ -44,11 +44,13 @@ public class ConsistentHash3 {
 
         ch.confirmSelect();
 
-
+        long time1 = System.currentTimeMillis();
         for (int i = 0; i < 100000; i++) {
             AMQP.BasicProperties.Builder bldr = new AMQP.BasicProperties.Builder();
             ch.basicPublish(EXCHANGE, "", bldr.messageId(String.valueOf(i)).build(), "".getBytes("UTF-8"));
         }
+        long time2 = System.currentTimeMillis();
+        System.out.println("Solution 3 used " + (time2 - time1) + " ms");
 
         ch.waitForConfirmsOrDie(10000);
 

@@ -22,27 +22,34 @@ public class ConsistentHash1 {
         Connection conn = cf.newConnection();
         Channel ch = conn.createChannel();
 
-        for (String q : Arrays.asList("q1", "q2", "q3", "q4")) {
+        for (String q : Arrays.asList("q1", "q2", "q3", "q4", "q5", "q6")) {
             ch.queueDeclare(q, true, false, false, null);
             ch.queuePurge(q);
         }
 
         ch.exchangeDeclare("e1", CONSISTENT_HASH_EXCHANGE_TYPE, true, false, null);
 
-        for (String q : Arrays.asList("q1", "q2")) {
-            ch.queueBind(q, "e1", "1");
-        }
+//        for (String q : Arrays.asList("q1", "q2")) {
+//            ch.queueBind(q, "e1", "1");
+//        }
 
         for (String q : Arrays.asList("q3", "q4")) {
             ch.queueBind(q, "e1", "2");
         }
 
+        for (String q : Arrays.asList("q5", "q6")) {
+            ch.queueBind(q, "e1", "2");
+        }
+
         ch.confirmSelect();
 
+        long time1 = System.currentTimeMillis();
         AMQP.BasicProperties.Builder bldr = new AMQP.BasicProperties.Builder();
         for (int i = 0; i < 100000; i++) {
             ch.basicPublish("e1", String.valueOf(i), bldr.build(), "".getBytes("UTF-8"));
         }
+        long time2 = System.currentTimeMillis();
+        System.out.println("Solution 1 used " + (time2 - time1) + " ms");
 
         ch.waitForConfirmsOrDie(10000);
 

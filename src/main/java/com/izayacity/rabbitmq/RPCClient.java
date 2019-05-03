@@ -16,7 +16,7 @@ public class RPCClient implements AutoCloseable {
 
 	private Connection connection;
 	private Channel channel;
-	private String requestQueueName = "rpc_queue";
+	private String requestQueueRoutingKey = "rpc_queue";
 	private final static String QUEUE_HOST = "localhost";
 
 	public RPCClient() throws IOException, TimeoutException {
@@ -44,18 +44,18 @@ public class RPCClient implements AutoCloseable {
 		final String corrId = UUID.randomUUID().toString();
 		System.out.println(LocalTime.now().toString() + " - channel id: " + channel.getChannelNumber() + " and corrId: " + corrId);
 
-		String replyQueueName = channel.queueDeclare().getQueue();
+		String replayQueueRoutingKey = channel.queueDeclare().getQueue();
 		AMQP.BasicProperties props = new AMQP.BasicProperties
 				.Builder()
 				.correlationId(corrId)
-				.replyTo(replyQueueName)
+				.replyTo(replayQueueRoutingKey)
 				.build();
 
-		channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
+		channel.basicPublish("", requestQueueRoutingKey, props, message.getBytes("UTF-8"));
 
 		final BlockingQueue<String> response = new ArrayBlockingQueue<>(1);
 
-		String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
+		String ctag = channel.basicConsume(replayQueueRoutingKey, true, (consumerTag, delivery) -> {
 			if (delivery.getProperties().getCorrelationId().equals(corrId)) {
 				response.offer(new String(delivery.getBody(), "UTF-8"));
 			}
@@ -63,8 +63,9 @@ public class RPCClient implements AutoCloseable {
 		});
 
 		String result = response.take();
-		System.out.println(LocalTime.now().toString() + " - queue name of message  " + message + ": " + replyQueueName);
+		System.out.println(LocalTime.now().toString() + " - queue name of message  " + message + ": " + replayQueueRoutingKey);
 		System.out.println(LocalTime.now().toString() + " - consumer tag of message  " + message + ": " + ctag);
+		// cancel the consumer declared above
 		channel.basicCancel(ctag);
 		return result;
 	}

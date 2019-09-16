@@ -1,80 +1,114 @@
 package com.izayacity.algorithms.graph;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
-public class Graph {
-	private int V;
-	private LinkedList<Integer> adj[];
+import java.util.*;
 
-	Graph(int v) {
-		V= v;
-		adj = new LinkedList[v];
-		for(int i = 0; i < v; i++) {
-			adj[i] = new LinkedList<>();
-		}
-	}
+public class Graph<T> {
 
-	void addEdge(int v, int w) {
-		adj[v].add(w);
-	}
+    private Map<T, Map<T, Integer>> adjListMap;
+    private Set<T> graphNodes;
 
-	void BFS(int s) {
-		boolean visited[] = new boolean[V];
-		LinkedList<Integer> queue= new LinkedList<>();
-		visited[s] = true;
-		queue.add(s);
+    public Graph(final List<GraphEdge<T>> edges, final boolean undirected) {
+        this.adjListMap = Maps.newHashMap();
+        this.graphNodes = Sets.newHashSet();
 
-		while(queue.size() != 0) {
-			s = queue.poll();
-			System.out.print(s + " ");
-			// Get all adjacent vertices of the dequeued vertex s.
-			// If a adjacent has not been visited, then mark it visited and enqueue it.
-			Iterator<Integer> i = adj[s].listIterator();
-			while(i.hasNext()) {
-				int n = i.next();
+        for (GraphEdge<T> edge : edges) {
+            this.addEdge(edge.getFromNode(), edge.getToNode(), edge.getWeight(), undirected);
+        }
+    }
 
-				if(!visited[n]) {
-					visited[n] = true;
-					queue.add(n);
-				}
-			}
-		}
-	}
+    public Graph(final List<GraphEdge<T>> edges) {
+        this(edges, false);
+    }
 
-	void DFS(int v) {
-		boolean visited[] = new boolean[V];
-		DFSUtil(v, visited);
-	}
+    public void addEdge(final T src, final T dest) {
+        this.addEdge(src, dest, 1);
+    }
 
-	void DFSUtil(int v, boolean visited[]) {
-		visited[v] = true;
-		System.out.print(v + " ");
+    public void addEdge(final T src, final T dest, final int weight) {
+        if (!adjListMap.containsKey(src)) {
+            this.adjListMap.put(src, new HashMap<>());
+        }
+        this.adjListMap.get(src).put(dest, weight);
+        this.graphNodes.add(src);
+        this.graphNodes.add(dest);
+    }
 
-		Iterator<Integer> i = adj[v].listIterator();
-		while(i.hasNext()) {
-			int n = i.next();
-			if(!visited[n]) {
-				DFSUtil(n, visited);
-			}
-		}
-	}
+    public void addUndirectedEdge(final T src, final T dest, final int weight) {
+        this.addEdge(src, dest, weight);
+        this.addEdge(dest, src, weight);
+    }
 
-	public static void main(String args[]) {
-		Graph g = new Graph(4);
+    public void addUndirectedEdge(final T src, final T dest) {
+        this.addEdge(src, dest);
+        this.addEdge(dest, src);
+    }
 
-		g.addEdge(0, 1);
-		g.addEdge(0, 2);
-		g.addEdge(1, 2);
-		g.addEdge(2, 0);
-		g.addEdge(2, 3);
-		g.addEdge(3, 3);
+    public void addEdge(final T src, final T dest, final boolean undirected) {
+        if (undirected) {
+            this.addUndirectedEdge(src, dest);
+        } else {
+            this.addEdge(src, dest);
+        }
+    }
 
-		System.out.println("Following is Breadth First Traversal "+
-				"(starting from vertex 2)");
-		g.BFS(2);
-		System.out.println("\nFollowing is Depth First Traversal "+
-				"(starting from vertex 2)");
-		g.DFS(2);
-	}
+    public void addEdge(final T src, final T dest, final int weight, final boolean undirected) {
+        if (undirected) {
+            this.addUndirectedEdge(src, dest, weight);
+        } else {
+            this.addEdge(src, dest, weight);
+        }
+    }
+
+    public int size() {
+        return this.graphNodes.size();
+    }
+
+    public int edges() {
+        return this.adjListMap.size();
+    }
+
+    public int connectionLevel(final T src, final T dest) {
+        return 0;
+    }
+
+    public int connectionLevelBfs(final T src, final T dest) {
+        return 0;
+    }
+
+    public int connectionLevelDfs(final T src, final T dest) {
+        if (src == dest) {
+            return 1;
+        }
+        Set<T> visited = Sets.newHashSet();
+        int[] result = new int[]{Integer.MAX_VALUE};
+        connectionLevelDfsUtil(src, dest, visited, result, 0);
+        if (result[0] > this.size()) {
+            return 0;
+        }
+        return result[0];
+    }
+
+    private void connectionLevelDfsUtil(final T src, final T dest, Set<T> visited, int[] result, int current) {
+        if (!this.adjListMap.containsKey(src) || !this.adjListMap.containsKey(dest)) {
+            result[0] = 0;
+            return;
+        }
+        visited.add(src);
+
+        for (T adjNode : this.adjListMap.get(src).keySet()) {
+            if (visited.contains(adjNode)) {
+                continue;
+            }
+            if (adjNode == dest) {
+                if (current < result[0]) {
+                    result[0] = current + 1;
+                }
+                return;
+            }
+            connectionLevelDfsUtil(adjNode, dest, visited, result, current + 1);
+        }
+    }
 }

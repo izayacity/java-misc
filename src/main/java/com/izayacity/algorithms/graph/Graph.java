@@ -1,5 +1,6 @@
 package com.izayacity.algorithms.graph;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -71,10 +72,31 @@ public class Graph<T> {
     }
 
     public int connectionLevel(final T src, final T dest) {
-        return 0;
-    }
+        if (src == dest) {
+            return 1;
+        }
+        if (!this.adjListMap.containsKey(src) || !this.adjListMap.containsKey(dest)) {
+            return 0;
+        }
+        LinkedList<BfsQueueNode<T>> queue = Lists.newLinkedList();
+        Set<T> visited = Sets.newHashSet();
+        queue.add(new BfsQueueNode<>(src, 0));
+        visited.add(src);
 
-    public int connectionLevelBfs(final T src, final T dest) {
+        while (!queue.isEmpty()) {
+            BfsQueueNode<T> current = queue.poll();
+
+            for (T adjNode : this.adjListMap.get(current.getNode()).keySet()) {
+                if (visited.contains(adjNode)) {
+                    continue;
+                }
+                if (adjNode == dest) {
+                    return current.getLevel() + 1;
+                }
+                queue.add(new BfsQueueNode<>(adjNode, current.getLevel() + 1));
+                visited.add(adjNode);
+            }
+        }
         return 0;
     }
 
@@ -109,6 +131,24 @@ public class Graph<T> {
                 return;
             }
             connectionLevelDfsUtil(adjNode, dest, visited, result, current + 1);
+        }
+    }
+
+    public static class BfsQueueNode<T> {
+        private T node;
+        private int level;
+
+        public BfsQueueNode(T node, int level) {
+            this.node = node;
+            this.level = level;
+        }
+
+        public T getNode() {
+            return node;
+        }
+
+        public int getLevel() {
+            return level;
         }
     }
 }

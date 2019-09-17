@@ -27,7 +27,7 @@ class GraphTest {
     void addEdgeTest() {
         Graph<Character> graph = newGraph();
         Assertions.assertNotNull(graph);
-        System.out.println(gson.toJson(graph));
+        //System.out.println(gson.toJson(graph));
     }
 
     @Test
@@ -36,6 +36,14 @@ class GraphTest {
 
     @Test
     void connectionLevelBfs() {
+        Graph<Character> graph = newGraph();
+        Assertions.assertEquals(1, graph.connectionLevel('A', 'C'));
+        Assertions.assertEquals(2, graph.connectionLevel('A', 'B'));
+        Assertions.assertEquals(2, graph.connectionLevel('A', 'E'));
+        Assertions.assertEquals(3, graph.connectionLevel('A', 'F'));
+        Assertions.assertEquals(4, graph.connectionLevel('A', 'D'));
+        Assertions.assertEquals(0, graph.connectionLevel('A', 'G'));
+        Assertions.assertEquals(1, graph.connectionLevel('A', 'A'));
     }
 
     @Test

@@ -78,22 +78,22 @@ public class Graph<T> {
         if (!this.adjListMap.containsKey(src) || !this.adjListMap.containsKey(dest)) {
             return 0;
         }
-        LinkedList<BfsQueueNode<T>> queue = Lists.newLinkedList();
+        LinkedList<GraphNodeInfo<T>> queue = Lists.newLinkedList();
         Set<T> visited = Sets.newHashSet();
-        queue.add(new BfsQueueNode<>(src, 0));
+        queue.add(new GraphNodeInfo<>(src, 0));
         visited.add(src);
 
         while (!queue.isEmpty()) {
-            BfsQueueNode<T> current = queue.poll();
+            GraphNodeInfo<T> current = queue.poll();
 
             for (T adjNode : this.adjListMap.get(current.getNode()).keySet()) {
                 if (visited.contains(adjNode)) {
                     continue;
                 }
                 if (adjNode == dest) {
-                    return current.getLevel() + 1;
+                    return current.getVal() + 1;
                 }
-                queue.add(new BfsQueueNode<>(adjNode, current.getLevel() + 1));
+                queue.add(new GraphNodeInfo<>(adjNode, current.getVal() + 1));
                 visited.add(adjNode);
             }
         }
@@ -134,21 +134,49 @@ public class Graph<T> {
         }
     }
 
-    public static class BfsQueueNode<T> {
-        private T node;
-        private int level;
+    public void topologicalSort() {
+        List<GraphNodeInfo<T>> resList = Lists.newArrayList();
+        Set<T> visited = new HashSet<>();
 
-        public BfsQueueNode(T node, int level) {
+        for (T node : this.graphNodes) {
+            if (!visited.contains(node)) {
+                topologicalSortUtil(node, visited, resList);
+            }
+        }
+        for (GraphNodeInfo info : resList) {
+            System.out.println("node " + info.getNode().toString() + " value " + info.getVal());
+        }
+    }
+
+    private void topologicalSortUtil(T currNode, Set<T> visited, List<GraphNodeInfo<T>> resList) {
+        visited.add(currNode);
+        if (this.adjListMap.containsKey(currNode)) {
+            for (T adjNode : this.adjListMap.get(currNode).keySet()) {
+                if (visited.contains(adjNode)) {
+                    continue;
+                }
+                topologicalSortUtil(adjNode, visited, resList);
+            }
+        }
+        int resSize = resList.size();
+        resList.add(new GraphNodeInfo<>(currNode, this.graphNodes.size() - resSize));
+    }
+
+    public static class GraphNodeInfo<T> {
+        private T node;
+        private int val;
+
+        public GraphNodeInfo(T node, int val) {
             this.node = node;
-            this.level = level;
+            this.val = val;
         }
 
         public T getNode() {
             return node;
         }
 
-        public int getLevel() {
-            return level;
+        public int getVal() {
+            return val;
         }
     }
 }

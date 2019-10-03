@@ -12,6 +12,10 @@ class GraphTest {
     private Gson gson = new Gson();
 
     Graph<Character> newGraph() {
+        return newGraphWithOptions(true);
+    }
+
+    Graph<Character> newGraphWithOptions(final boolean undirected) {
         List<GraphEdge<Character>> edges = Arrays.asList(
                 new GraphEdge<>('A', 'C'),
                 new GraphEdge<>('B', 'C'),
@@ -20,7 +24,7 @@ class GraphTest {
                 new GraphEdge<>('D', 'F'),
                 new GraphEdge<>('G', 'Z')
         );
-        return new Graph<Character>(edges, true);
+        return new Graph<Character>(edges, undirected);
     }
 
     @Test
@@ -56,5 +60,11 @@ class GraphTest {
         Assertions.assertEquals(4, graph.connectionLevelDfs('A', 'D'));
         Assertions.assertEquals(0, graph.connectionLevelDfs('A', 'G'));
         Assertions.assertEquals(1, graph.connectionLevelDfs('A', 'A'));
+    }
+
+    @Test
+    void topologicalSort() {
+        Graph<Character> graph = newGraphWithOptions(false);
+        graph.topologicalSort();
     }
 }

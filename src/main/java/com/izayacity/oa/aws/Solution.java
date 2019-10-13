@@ -389,4 +389,106 @@ public class Solution {
         }
         return res;
     }
+
+    public static class TreeNode {
+        int val;
+        List<TreeNode> children;
+
+        public TreeNode(int val, List<TreeNode> children) {
+            this.val = val;
+            this.children = children;
+        }
+    }
+
+    TreeNode maxNode = null;
+    double max = Integer.MIN_VALUE;
+
+    public TreeNode maximumAverageSubtree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        helper(root);
+        return maxNode;
+    }
+
+    private double[] helper(TreeNode root) {
+        if (root == null) {
+            return new double[]{0, 0};
+        }
+        double curTotal = root.val;
+        double count = 1;
+
+        for (TreeNode child : root.children) {
+            double[] cur = helper(child);
+            curTotal += cur[0];
+            count += cur[1];
+        }
+        double avg = curTotal / count;
+        //taking "at least 1 child" into account
+        if (count > 1 && avg > max) {
+            max = avg;
+            maxNode = root;
+        }
+        return new double[]{curTotal, count};
+    }
+
+    int[] parents;
+
+    public int minCostToConnect(int n, int[][] edges, int[][] edgesToRepair) {
+        int connect = n;
+        int totalCost = 0;
+        parents = new int[n + 1];
+        Set<String> set = new HashSet<>();
+
+        for (int i = 0; i < n; i++) {
+            parents[i] = i;
+        }
+        for (int[] edge : edgesToRepair) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(edge[0]).append("#").append(edge[1]);
+            set.add(sb.toString());
+        }
+        for (int[] edge : edges) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(edge[0]).append("#").append(edge[1]);
+            if (!set.contains(sb.toString())) {
+                this.union(edge[0], edge[1]);
+                connect--;
+            }
+        }
+        Arrays.sort(edgesToRepair, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] arr1, int[] arr2) {
+                return arr1[2] - arr2[2];
+            }
+        });
+        for (int[] edge : edgesToRepair) {
+            if (this.union(edge[0], edge[1])) {
+                totalCost += edge[2];
+                connect--;
+            }
+            if (connect == 1) {
+                return totalCost;
+            }
+        }
+        return connect == 1 ? totalCost : -1;
+    }
+
+    private boolean union(int x, int y) {
+        int setX = find(x);
+        int setY = find(y);
+
+        if (setX != setY) {
+            parents[setY] = setX;
+            return true;
+        }
+        return false;
+    }
+
+    private int find(int num) {
+        if (parents[num] != num) {
+            parents[num] = find(parents[num]);
+        }
+        return parents[num];
+    }
 }

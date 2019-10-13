@@ -203,4 +203,19 @@ class SolutionTest {
         int[] res = this.solution.twoSumClosest(new int[]{90, 85, 75, 60, 120, 150, 125}, 220);
         System.out.println(this.gson.toJson(res));
     }
+
+    @Test
+    void minCostToConnect() {
+        int[] nTests = {6};
+        int[] expected = {7};
+        int[][][] edgesTests = {{{1, 4}, {4, 5}, {2, 3}}};
+        int[][][] newEdgesTests = {{{1, 2, 5}, {1, 3, 10}, {1, 6, 2}, {5, 6, 5}}};
+
+        for (int i = 0; i < nTests.length; i++) {
+            Assertions.assertEquals(expected[i], this.solution.minCostToConnect(nTests[i], edgesTests[i], newEdgesTests[i]));
+        }
+        Assertions.assertEquals(20, this.solution.minCostToConnect(5, new int[][]{{1, 2}, {2, 3}, {3, 4}, {4, 5}, {1, 5}}, new int[][]{{1, 2, 12}, {3, 4, 30}, {1, 5, 8}}));
+        Assertions.assertEquals(410, this.solution.minCostToConnect(6, new int[][]{{1, 2}, {2, 3}, {4, 5}, {3, 5}, {1, 6}, {2, 4}}, new int[][]{{1, 6, 410}, {2, 4, 800}}));
+        Assertions.assertEquals(79, this.solution.minCostToConnect(6, new int[][]{{1, 2}, {2, 3}, {4, 5}, {5, 6}, {1, 5}, {2, 4}, {3, 4}}, new int[][]{{1, 5, 110}, {2, 4, 84}, {3, 4, 79}}));
+    }
 }

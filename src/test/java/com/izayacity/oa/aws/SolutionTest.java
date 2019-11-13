@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -217,5 +219,54 @@ class SolutionTest {
         Assertions.assertEquals(20, this.solution.minCostToConnect(5, new int[][]{{1, 2}, {2, 3}, {3, 4}, {4, 5}, {1, 5}}, new int[][]{{1, 2, 12}, {3, 4, 30}, {1, 5, 8}}));
         Assertions.assertEquals(410, this.solution.minCostToConnect(6, new int[][]{{1, 2}, {2, 3}, {4, 5}, {3, 5}, {1, 6}, {2, 4}}, new int[][]{{1, 6, 410}, {2, 4, 800}}));
         Assertions.assertEquals(79, this.solution.minCostToConnect(6, new int[][]{{1, 2}, {2, 3}, {4, 5}, {5, 6}, {1, 5}, {2, 4}, {3, 4}}, new int[][]{{1, 5, 110}, {2, 4, 84}, {3, 4, 79}}));
+    }
+
+    @Test
+    void thirdMax() {
+        int[] input = new int[]{1, 2, 2, 5, 3, 5};
+        Assertions.assertEquals(2, this.solution.thirdMax(input));
+
+        input = new int[]{5, 2, 4, 1, 3, 6, 0};
+        Assertions.assertEquals(4, this.solution.thirdMax(input));
+    }
+
+    @Test
+    void solveEquation() {
+        String input = "x+5-3+x=6+x-2";
+        Assertions.assertEquals("x=2", this.solution.solveEquation(input));
+    }
+
+    @Test
+    void leastInterval() {
+        char[] arr = new char[]{'A', 'A', 'A', 'A', 'A', 'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+        Assertions.assertEquals(16, this.solution.leastInterval(arr, 2));
+    }
+
+    @Test
+    void prisonAfterNDays() {
+        int[] arr = new int[]{1, 0, 0, 1, 0, 0, 1, 0};
+        int[] expected = new int[]{0, 0, 1, 1, 1, 1, 1, 0};
+        Assertions.assertArrayEquals(expected, this.solution.prisonAfterNDays(arr, 1000000000));
+    }
+
+    @Test
+    void largestSumOfAverages() {
+        int[] arr = new int[]{9,1,2};
+        Assertions.assertEquals(10.5D, this.solution.largestSumOfAverages(arr, 1));
+
+        arr = new int[]{9,1,2,3,9};
+        Assertions.assertEquals(20.0D, this.solution.largestSumOfAverages(arr, 3));
+    }
+
+    @Test
+    void findNumberOfLIS() {
+        int[] arr = new int[]{1,2,3,1,2,3,1,2,3};
+        Assertions.assertEquals(10, this.solution.findNumberOfLIS(arr));
+
+        arr = new int[]{3, 1, 2};
+        Assertions.assertEquals(1, this.solution.findNumberOfLIS(arr));
+
+        arr = new int[]{1,3,5,4,7};
+        Assertions.assertEquals(2, this.solution.findNumberOfLIS(arr));
     }
 }

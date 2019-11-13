@@ -1,5 +1,7 @@
 package com.izayacity.oa.aws;
 
+import com.google.gson.Gson;
+
 import java.util.*;
 
 /**
@@ -10,6 +12,7 @@ import java.util.*;
  */
 public class Solution {
 
+    private Gson gson = new Gson();
     private static final int[][] DIRS = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     // Optimal Utilization
@@ -490,5 +493,259 @@ public class Solution {
             parents[num] = find(parents[num]);
         }
         return parents[num];
+    }
+
+    // https://leetcode.com/problems/third-maximum-number
+    public int thirdMax(int[] nums) {
+        int headCount = 3;
+        Set<Integer> hset = new HashSet<>();
+
+        for (int val : nums) {
+            if (hset.contains(val)) {
+                continue;
+            }
+            if (hset.size() < headCount) {
+                hset.add(val);
+                continue;
+            }
+            int smallest = this.smallest(hset);
+            if (smallest >= val) {
+                continue;
+            }
+            hset.remove(smallest);
+            hset.add(val);
+        }
+        if (hset.size() < headCount) {
+            return this.largest(hset);
+        }
+        int smallest = this.smallest(hset);
+        return smallest;
+    }
+
+    private int smallest(Set<Integer> hset) {
+        int smallest = Integer.MAX_VALUE;
+        Iterator<Integer> it = hset.iterator();
+        while (it.hasNext()) {
+            int n = it.next();
+            if (n < smallest) {
+                smallest = n;
+            }
+        }
+        return smallest;
+    }
+
+    private int largest(Set<Integer> hset) {
+        int largest = Integer.MIN_VALUE;
+        Iterator<Integer> it = hset.iterator();
+        while (it.hasNext()) {
+            int n = it.next();
+            if (n > largest) {
+                largest = n;
+            }
+        }
+        return largest;
+    }
+
+    public String solveEquation(String equation) {
+        String[] parts = equation.split("=");
+        int[] leftPart = evaluate(parts[0]);
+        int[] rightPart = evaluate(parts[1]);
+        if (leftPart[0] == rightPart[0] && leftPart[1] == rightPart[1]) {
+            return "Infinite solutions";
+        } else if (leftPart[0] == rightPart[0]) {
+            return "No solution";
+        }
+        return "x=" + (rightPart[1] - leftPart[1]) / (leftPart[0] - rightPart[0]);
+    }
+
+    private int[] evaluate(String str) {
+        String[] tokens = str.split("(?=[+-])");  // ()for match group; ?= for match and include in res; [+-] means + or -;
+        int[] res = new int[2]; // coefficient for x;  coefficient for constant
+        for (String token : tokens) {
+            if (token.equals("+x") || token.equals("x")) res[0]++; // x means 1x
+            else if (token.equals("-x")) res[0]--;// -x means -1x
+            else if (token.contains("x")) {
+                res[0] += Integer.parseInt(token.substring(0, token.length() - 1));
+            } else {
+                res[1] += Integer.parseInt(token);
+            }
+        }
+        return res;
+    }
+
+    public int leastInterval(char[] tasks, int n) {
+        LinkedHashMap<Character, Integer> taskMap = new LinkedHashMap<>();
+        for (int i = tasks.length - 1; i >= 0; i--) {
+            taskMap.put(tasks[i], taskMap.getOrDefault(tasks[i], 0) + 1);
+        }
+        List<Character> taskList = new ArrayList<>();
+        Map<Character, Integer> taskLocMap = new HashMap<>();
+
+        while (!taskMap.isEmpty()) {
+            Map.Entry<Character, Integer> head = lmapPeek(taskMap);
+            Character task = head.getKey();
+            if (!taskLocMap.containsKey(task)) {
+                finishTask(taskMap, task, taskList, taskLocMap);
+                continue;
+            }
+            int loc = taskLocMap.get(task);
+            for (int i = taskList.size(); i - loc - 1 < n; i++) {
+                taskList.add(' ');
+            }
+            finishTask(taskMap, task, taskList, taskLocMap);
+        }
+        System.out.println(taskList);
+        return taskList.size();
+    }
+
+    private Map.Entry<Character, Integer> lmapPeek(LinkedHashMap<Character, Integer> lmap) {
+        Iterator<Map.Entry<Character, Integer>> it = lmap.entrySet().iterator();
+        while (it.hasNext()) {
+            return it.next();
+        }
+        return null;
+    }
+
+    private void finishTask(LinkedHashMap<Character, Integer> lmap, Character ch, List<Character> taskList, Map<Character, Integer> taskLocMap) {
+        if (!lmap.containsKey(ch)) {
+            return;
+        }
+        int freq = lmap.get(ch);
+        lmap.remove(ch);
+        taskLocMap.put(ch, taskList.size());
+        taskList.add(ch);
+
+        if (freq > 1) {
+            lmap.put(ch, freq - 1);
+        }
+    }
+
+    public int[] prisonAfterNDays(int[] cells, int N) {
+        if (0 == cells.length) {
+            return cells;
+        }
+        Map<String, Integer> dict = new HashMap<>();
+        return prisonAfterNDaysUtil(cells, N, dict);
+    }
+
+    private int[] prisonAfterNDaysUtil(int[] cells, int N, Map<String, Integer> dict) {
+        if (0 == N) {
+            return cells;
+        }
+        String snapshot = stringifyInts(cells);
+        if (!dict.containsKey(snapshot)) {
+            dict.put(snapshot, N);
+        } else {
+            int date = dict.get(snapshot);
+            dict.put(snapshot, N);
+            N = N % (date - N);
+            if (N == 0) {
+                return cells;
+            }
+            return prisonAfterNDaysUtil(mutate(cells), N - 1, dict);
+        }
+        return prisonAfterNDaysUtil(mutate(cells), N - 1, dict);
+    }
+
+    private int[] mutate(int[] cells) {
+        int len = cells.length;
+        if (len == 0) {
+            return cells;
+        }
+        int[] c = new int[len];
+        for (int i = 1; i < len - 1; i++) {
+            c[i] = (cells[i - 1] + cells[i + 1] + 1) % 2;
+        }
+        return c;
+    }
+
+    private String stringifyInts(int[] arr) {
+        StringBuilder sb = new StringBuilder();
+        for (int val : arr) {
+            sb.append(val);
+        }
+        return sb.toString();
+    }
+
+    public double largestSumOfAverages(int[] A, int K) {
+        int N = A.length;
+        double[][] memo = new double[N][K + 1];
+        int[] sum = new int[N];
+
+        for (int i = 0; i < N; i++) {
+            sum[i] = A[i];
+            if (i >= 1) {
+                sum[i] += sum[i - 1];
+            }
+            memo[i][0] = sum[i] / (double)(i + 1);
+            for (int j = 1; j <= K; j++) {
+                if (j > i) {
+                    memo[i][j] = memo[i][j - 1];
+                    continue;
+                }
+                double maxSum = memo[i - 1][j];
+                for (int k = 1; k <= i - j + 1; k++) {
+                    double val = memo[i - k][j - 1] + (sum[i] - sum[i - k]) / (double)k;
+                    maxSum = Math.max(maxSum, val);
+                    System.out.println("i:" + i + ", j:" + j + ", k:" + k + ", val:" + val + ", maxSum:" + maxSum);
+                }
+                memo[i][j] = maxSum;
+            }
+        }
+        System.out.println(gson.toJson(sum));
+        System.out.println(gson.toJson(memo));
+        return memo[N - 1][K];
+    }
+
+    public int findNumberOfLIS(int[] nums) {
+        List<List<Integer>> l1 = new ArrayList<>(); // longest
+        List<List<Integer>> l2 = new ArrayList<>(); // second longest
+        int minL1 = Integer.MAX_VALUE;
+        int minL2 = Integer.MAX_VALUE;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i == 0) {
+                l1.add(Arrays.asList(nums[i]));
+                minL1 = nums[i];
+                continue;
+            }
+            if (nums[i] > minL1 || l1.get(0).size() == 1) {
+                // append to l1
+                if (l1.get(0).size() == 1 && nums[i] <= minL1) {
+                    l1.add(Arrays.asList(nums[i]));
+                    if (nums[i] < minL1) {
+                        minL1 = nums[i];
+                    }
+                } else {
+                    l2 = l1;
+                    minL2 = minL1;
+                    l1 = new ArrayList<>();
+                    minL1 = Integer.MAX_VALUE;
+                    minL1 = moveList(l1, l2, minL1, nums[i]);
+                }
+            } else if (nums[i] > minL2) {
+                // append to l2
+                minL1 = moveList(l1, l2, minL1, nums[i]);
+            }
+        }
+        System.out.println("l1:" + this.gson.toJson(l1));
+        System.out.println("l2:" + this.gson.toJson(l2));
+        return l1.size();
+    }
+
+    private int moveList(List<List<Integer>> l1, List<List<Integer>> l2, int minL1, int num) {
+        int lenL2 = l2.get(0).size();
+        for (List<Integer> subList : l2) {
+            if (subList.get(lenL2 - 1) >= num) {
+                continue;
+            }
+            List<Integer> tmp = new ArrayList<>(subList);
+            tmp.add(num);
+            l1.add(tmp);
+            if (num < minL1) {
+                minL1 = num;
+            }
+        }
+        return minL1;
     }
 }

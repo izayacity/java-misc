@@ -66,7 +66,6 @@ public class MealPlanLogic {
             return;
         }
         visited.add(hKey);
-        float costs = meals.get(lo).getCost() + meals.get(hi).getCost();
         float diff = budget - meals.get(lo).getCost() - meals.get(hi).getCost();
         if (diff < 0) {
             allMealPlansUtil(budget, gap, mealPlans, meals, lo, --hi, visited);

@@ -2,6 +2,7 @@ package com.izayacity.playground.mealplan.logic;
 
 import com.google.gson.Gson;
 import com.izayacity.playground.mealplan.meta.MealPlanMeta;
+import com.izayacity.playground.mealplan.model.MealModel;
 import com.izayacity.playground.mealplan.model.MealPlan;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +40,12 @@ class MealPlanLogicTest {
         MealPlanMeta meta = this.mealPlanLogic.getMealPlanMeta();
         Assertions.assertNotNull(meta);
         this.display(meta);
+    }
+
+    @Test
+    void mealsUnderBudget() {
+        List<MealModel> meals = this.mealPlanLogic.mealsUnderBudget(30);
+        this.display(meals);
     }
 
     @Test

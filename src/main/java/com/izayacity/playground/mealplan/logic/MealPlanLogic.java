@@ -40,6 +40,18 @@ public class MealPlanLogic {
         return mealPlanMeta;
     }
 
+    public List<MealModel> mealsUnderBudget(int budget) {
+        LinkedList<MealModel> items = new LinkedList<>();
+        List<MealModel> meals = this.getMealPlanMeta().getMealInfoList();
+        for (int i = 0; i < meals.size(); i++) {
+            if (meals.get(i).getCost() > budget) {
+                break;
+            }
+            items.addFirst(new MealModel(meals.get(i)));
+        }
+        return items;
+    }
+
     public List<MealPlan> allMealPlans(int budget, int gap) {
         List<MealPlan> mealPlans = new ArrayList<>();
         List<MealModel> meals = this.getMealPlanMeta().getMealInfoList();

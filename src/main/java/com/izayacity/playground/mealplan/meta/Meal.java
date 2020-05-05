@@ -45,6 +45,12 @@ public class Meal implements Index, Name, Weight {
     @Attribute
     private String name;
 
+    @Attribute(required = false)
+    private int disabled;
+
+    @Attribute
+    private int amount;
+
     public Meal() {
     }
 
@@ -59,6 +65,8 @@ public class Meal implements Index, Name, Weight {
         this.protein = obj.getProtein();
         this.vitamin = obj.getVitamin();
         this.name = obj.getName();
+        this.disabled = obj.getDisabled();
+        this.amount = obj.getAmount();
     }
 
     @Override
@@ -102,5 +110,13 @@ public class Meal implements Index, Name, Weight {
     @Override
     public String getName() {
         return name;
+    }
+
+    public int getDisabled() {
+        return disabled;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }

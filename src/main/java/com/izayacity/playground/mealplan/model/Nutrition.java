@@ -11,14 +11,16 @@ public class Nutrition {
     private int energy;
     private int protein;
     private int vitamin;
+    private int amount;
 
     public Nutrition() {
     }
 
-    public Nutrition(int energy, int protein, int vitamin) {
+    public Nutrition(int energy, int protein, int vitamin, int amount) {
         this.energy = energy;
         this.protein = protein;
         this.vitamin = vitamin;
+        this.amount = amount;
     }
 
     public int getEnergy() {
@@ -31,5 +33,9 @@ public class Nutrition {
 
     public int getVitamin() {
         return vitamin;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }

@@ -66,10 +66,15 @@ public class MealPlanLogic {
         Nutrition nutrition = new Nutrition(
                 this.mealPlanMeta.getMealMap().get(meal0.getId()).getEnergy() + this.mealPlanMeta.getMealMap().get(meal1.getId()).getEnergy(),
                 this.mealPlanMeta.getMealMap().get(meal0.getId()).getProtein() + this.mealPlanMeta.getMealMap().get(meal1.getId()).getProtein(),
-                this.mealPlanMeta.getMealMap().get(meal0.getId()).getVitamin() + this.mealPlanMeta.getMealMap().get(meal1.getId()).getVitamin()
+                this.mealPlanMeta.getMealMap().get(meal0.getId()).getVitamin() + this.mealPlanMeta.getMealMap().get(meal1.getId()).getVitamin(),
+                this.mealPlanMeta.getMealMap().get(meal0.getId()).getAmount() + this.mealPlanMeta.getMealMap().get(meal1.getId()).getAmount()
         );
         mealPlan.setNutrition(nutrition);
         return mealPlan;
+    }
+
+    public boolean checkAlike(String mealId0, String mealId1) {
+        return this.mealPlanMeta.getMealMap().get(mealId0).getCategory() == this.mealPlanMeta.getMealMap().get(mealId1).getCategory();
     }
 
     public void allMealPlansUtil(int budget, int gap, List<MealPlan> mealPlans, List<MealModel> meals, int lo, int hi, Set<String> visited) {
@@ -80,14 +85,16 @@ public class MealPlanLogic {
         visited.add(hKey);
         float diff = budget - meals.get(lo).getCost() - meals.get(hi).getCost();
         if (diff < 0) {
-            allMealPlansUtil(budget, gap, mealPlans, meals, lo, --hi, visited);
+            allMealPlansUtil(budget, gap, mealPlans, meals, lo, hi - 1, visited);
         } else if (diff > gap) {
-            allMealPlansUtil(budget, gap, mealPlans, meals, ++lo, hi, visited);
+            allMealPlansUtil(budget, gap, mealPlans, meals, lo + 1, hi, visited);
         } else {
             MealPlan mealPlan = this.makeMealPlan(meals.get(lo), meals.get(hi));
-            mealPlans.add(mealPlan);
-            allMealPlansUtil(budget, gap, mealPlans, meals, lo, --hi, visited);
-            allMealPlansUtil(budget, gap, mealPlans, meals, ++lo, hi, visited);
+            if (mealPlan.checkHealthy() && !this.checkAlike(meals.get(lo).getId(), meals.get(hi).getId())) {
+                mealPlans.add(mealPlan);
+            }
+            allMealPlansUtil(budget, gap, mealPlans, meals, lo, hi - 1, visited);
+            allMealPlansUtil(budget, gap, mealPlans, meals, lo + 1, hi, visited);
         }
     }
 }

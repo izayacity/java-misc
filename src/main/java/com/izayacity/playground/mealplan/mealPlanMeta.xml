@@ -3,59 +3,65 @@
     <resources>
         <app index="0" name="七鲜">
             <restaurant index="0" delivery="0.0" name="七鲜">
-                <item index="0" id="A0000" weight="5" price="21.9" staple="3" category="3" energy="0" protein="1" vitamin="2" name="牛肉藜麦螺旋面沙拉"/>
-                <item index="1" id="A0001" weight="4" price="24.9" staple="3" category="3" energy="0" protein="1" vitamin="2" name="火腿菠萝卷沙拉"/>
-                <item index="2" id="A0002" weight="3" price="19.9" staple="3" category="3" energy="0" protein="1" vitamin="2" name="帕斯雀黑椒牛肉卷"/>
-                <item index="3" id="A0003" weight="1" price="24.8" staple="0" category="7" energy="1" protein="1" vitamin="1" name="秋刀鱼花蛤盖饭"/>
-                <item index="4" id="A0004" weight="2" price="34.8" staple="0" category="7" energy="1" protein="2" vitamin="1" name="蒲烧鳗蛤盖饭"/>
-                <item index="5" id="A0005" weight="2" price="29.0" staple="0" category="7" energy="0" protein="2" vitamin="1" name="什锦海鲜饭"/>
+                <item index="0" id="A0000" weight="5" price="21.9" staple="3" category="3" energy="0" protein="1" vitamin="2" amount="0" name="牛肉藜麦螺旋面沙拉"/>
+                <item index="1" id="A0001" weight="4" price="24.9" staple="3" category="3" energy="0" protein="1" vitamin="2" amount="0" name="火腿菠萝卷沙拉"/>
+                <item index="2" id="A0002" weight="3" price="19.9" staple="3" category="3" energy="0" protein="1" vitamin="2" amount="0" name="帕斯雀黑椒牛肉卷"/>
+                <item index="3" id="A0003" weight="1" price="24.8" staple="0" category="7" energy="1" protein="1" vitamin="1" amount="1" name="秋刀鱼花蛤盖饭"/>
+                <item index="4" id="A0004" weight="2" price="34.8" staple="0" category="7" energy="1" protein="2" vitamin="1" amount="1" name="蒲烧鳗蛤盖饭"/>
+                <item index="5" id="A0005" weight="1" price="29.0" staple="0" category="7" energy="0" protein="2" vitamin="2" amount="0" name="什锦海鲜饭" disabled="1"/>
+                <item index="6" id="A0006" weight="1" price="26.9" staple="0" category="3" energy="0" protein="2" vitamin="2" amount="1" name="主厨沙拉"/>
             </restaurant>
         </app>
         <app index="1" name="美团">
             <restaurant index="0" name="金谷园" delivery="1.0">
-                <item index="0" id="B0000" weight="4" price="30.8" staple="4" category="2" energy="1" protein="2" vitamin="0" name="鲅鱼金饺大份"/>
-                <item index="1" id="B0001" weight="4" price="26.0" staple="4" category="2" energy="1" protein="2" vitamin="0" name="芹菜牛肉饺大份"/>
-                <item index="2" id="B0002" weight="4" price="32.0" staple="4" category="2" energy="1" protein="2" vitamin="0" name="金品质组合大份（8个鲅鱼+8个藤椒牛肉）"/>
-                <item index="2" id="B0003" weight="4" price="39.0" staple="4" category="2" energy="1" protein="2" vitamin="0" name="四季健康大份"/>
+                <item index="0" id="B0000" weight="4" price="30.8" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="鲅鱼金饺大份"/>
+                <item index="1" id="B0001" weight="4" price="26.0" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="芹菜牛肉饺大份"/>
+                <item index="2" id="B0002" weight="4" price="32.0" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="金品质组合大份（8个鲅鱼+8个藤椒牛肉）"/>
+                <item index="2" id="B0003" weight="4" price="39.0" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="四季健康大份"/>
             </restaurant>
             <restaurant index="1" name="赛百味" delivery="0.0">
-                <item index="0" id="B0100" weight="5" price="29.5" staple="1" category="4" energy="0" protein="2" vitamin="1" name="6寸黑椒厚切牛排"/>
-                <item index="1" id="B0101" weight="5" price="27.0" staple="1" category="4" energy="0" protein="2" vitamin="1" name="6寸百味俱乐部"/>
-                <item index="2" id="B0102" weight="5" price="26.0" staple="1" category="4" energy="0" protein="2" vitamin="1" name="6寸意大利经典"/>
-                <item index="3" id="B0103" weight="5" price="22.0" staple="1" category="4" energy="0" protein="2" vitamin="1" name="6寸意大利香肠"/>
-                <item index="4" id="B0104" weight="3" price="24.0" staple="1" category="4" energy="0" protein="2" vitamin="1" name="6寸火鸡胸"/>
-            </restaurant>
+                <item index="0" id="B0100" weight="5" price="29.5" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸黑椒厚切牛排"/>
+                <item index="1" id="B0101" weight="5" price="27.0" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸百味俱乐部"/>
+                <item index="2" id="B0102" weight="5" price="26.0" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸意大利经典"/>
+                <item index="3" id="B0103" weight="5" price="22.0" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸意大利香肠"/>
+                <item index="4" id="B0104" weight="3" price="24.0" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸火鸡胸"/>
+            </restaurant>amount="1"
             <restaurant index="2" name="汉堡王" delivery="5.0" disabled="1">
-                <item index="0" id="B0200" weight="2" price="30.0" staple="1" category="6" energy="1" protein="2" vitamin="1" name="红烩牛肉皇堡"/>
-                <item index="1" id="B0201" weight="3" price="30.0" staple="1" category="6" energy="1" protein="2" vitamin="1" name="鱼跃龙门皇堡"/>
+                <item index="0" id="B0200" weight="2" price="30.0" staple="1" category="6" energy="1" protein="2" vitamin="1" amount="0" name="红烩牛肉皇堡"/>
+                <item index="1" id="B0201" weight="3" price="30.0" staple="1" category="6" energy="1" protein="2" vitamin="1" amount="0" name="鱼跃龙门皇堡"/>
             </restaurant>
             <restaurant index="3" name="MOJO" delivery="2.0">
-                <item index="0" id="B0300" weight="3" price="58.0" staple="3" category="3" energy="0" protein="2" vitamin="2" name="女神套餐"/>
+                <item index="0" id="B0300" weight="3" price="58.0" staple="3" category="3" energy="0" protein="2" vitamin="2" amount="2" name="女神套餐"/>
             </restaurant>
             <restaurant index="4" name="双马印象咖喱炸排店" delivery="2.0">
-                <item index="0" id="B0400" weight="2" price="29.0" staple="0" category="7" energy="2" protein="2" vitamin="2" name="炸特大猪排套餐"/>
-                <item index="1" id="B0401" weight="1" price="22.0" staple="0" category="7" energy="2" protein="2" vitamin="0" name="猪排盖饭"/>
-                <item index="2" id="B0402" weight="1" price="22.0" staple="0" category="7" energy="2" protein="2" vitamin="0" name="炸鱼排套餐"/>
-                <item index="3" id="B0403" weight="1" price="26.0" staple="0" category="7" energy="2" protein="2" vitamin="0" name="炸猪里脊套餐"/>
+                <item index="0" id="B0400" weight="2" price="29.0" staple="0" category="7" energy="2" protein="2" vitamin="2" amount="2" name="炸特大猪排套餐"/>
+                <item index="1" id="B0401" weight="1" price="22.0" staple="0" category="7" energy="2" protein="2" vitamin="0" amount="2" name="猪排盖饭"/>
+                <item index="2" id="B0402" weight="1" price="22.0" staple="0" category="7" energy="2" protein="2" vitamin="0" amount="2" name="炸鱼排套餐"/>
+                <item index="3" id="B0403" weight="1" price="26.0" staple="0" category="7" energy="2" protein="2" vitamin="0" amount="2" name="炸猪里脊套餐"/>
             </restaurant>
             <restaurant index="5" name="鱼仔村秘制拌饭" delivery="0.0">
-                <item index="0" id="B0500" weight="2" price="39.0" staple="0" category="9" energy="0" protein="2" vitamin="2" name="韩式肥牛鱼籽拌饭"/>
-                <item index="1" id="B0501" weight="2" price="26.0" staple="0" category="9" energy="0" protein="2" vitamin="2" name="蒜香芝士鱼籽拌饭标准"/>
-                <item index="2" id="B0502" weight="2" price="22.0" staple="0" category="9" energy="0" protein="1" vitamin="2" name="原味鱼籽拌饭大份"/>
-                <item index="3" id="B0503" weight="2" price="18.0" staple="0" category="9" energy="0" protein="1" vitamin="2" name="原味鱼籽拌饭标准份"/>
+                <item index="0" id="B0500" weight="2" price="39.0" staple="0" category="9" energy="0" protein="2" vitamin="1" amount="2" name="韩式肥牛鱼籽拌饭"/>
+                <item index="1" id="B0501" weight="2" price="26.0" staple="0" category="9" energy="0" protein="2" vitamin="1" amount="1" name="蒜香芝士鱼籽拌饭标准"/>
+                <item index="2" id="B0502" weight="2" price="22.0" staple="0" category="9" energy="0" protein="1" vitamin="1" amount="2" name="原味鱼籽拌饭大份"/>
+                <item index="3" id="B0503" weight="2" price="18.0" staple="0" category="9" energy="0" protein="1" vitamin="1" amount="1" name="原味鱼籽拌饭标准份"/>
             </restaurant>
             <restaurant index="6" name="和府捞面" delivery="1.0">
-                <item index="0" id="B0600" weight="4" price="39.0" staple="2" category="2" energy="1" protein="2" vitamin="0" name="番茄汤猪软骨面"/>
+                <item index="0" id="B0600" weight="4" price="39.0" staple="2" category="2" energy="1" protein="2" vitamin="0" amount="1" name="番茄汤猪软骨面"/>
             </restaurant>
-            <restaurant index="7" name="澳门味道" delivery="0.0">
-                <item index="0" id="B0700" weight="3" price="29.4" staple="2" category="0" energy="1" protein="1" vitamin="0" name="招牌鲜虾云吞面"/>
+            <restaurant index="7" name="悦览港味" delivery="2.0">
+                <item index="0" id="B0700" weight="3" price="32.0" staple="2" category="0" energy="1" protein="1" vitamin="0" amount="0" name="鲜虾云吞面"/>
             </restaurant>
             <restaurant index="8" name="喜多方拉面" delivery="1.0">
-                <item index="0" id="B0800" weight="3" price="28.0" staple="2" category="7" energy="1" protein="2" vitamin="1" name="味噌拉面"/>
+                <item index="0" id="B0800" weight="3" price="28.0" staple="2" category="7" energy="1" protein="2" vitamin="1" amount="1" name="味噌拉面"/>
             </restaurant>
-            <restaurant index="9" name="漫喀哧日式炸猪排" delivery="0.0" disabled="1">
-                <item index="0" id="B0900" weight="2" price="38.0" staple="0" category="7" energy="2" protein="2" vitamin="0" name="炸猪排咖喱"/>
-                <item index="0" id="B0900" weight="2" price="36.0" staple="0" category="7" energy="2" protein="2" vitamin="0" name="炸猪排"/>
+            <restaurant index="9" name="虎头军煎饼" delivery="1.0">
+                <item index="0" id="B0900" weight="2" price="23.7" staple="1" category="2" energy="1" protein="2" vitamin="0" amount="2" name="经典杂粮煎饼/烤肠/黑米粥"/>
+                <item index="1" id="B0901" weight="2" price="22.8" staple="1" category="2" energy="1" protein="2" vitamin="0" amount="1" name="至尊双蛋煎饼/烤肠"/>
+            </restaurant>
+            <restaurant index="10" name="火炉火韩式拌饭" delivery="5.0">
+                <item index="0" id="B1000" weight="2" price="20.80" staple="0" category="9" energy="0" protein="2" vitamin="1" amount="1" name="五花肉鱼籽拌饭"/>
+                <item index="1" id="B1001" weight="2" price="28.59" staple="0" category="9" energy="0" protein="2" vitamin="2" amount="2" name="男生套餐"/>
+                <item index="2" id="B1002" weight="2" price="27.14" staple="0" category="9" energy="0" protein="2" vitamin="1" amount="1" name="烤牛肉鱼籽拌饭"/>
             </restaurant>
         </app>
         <app index="2" name="必胜客">

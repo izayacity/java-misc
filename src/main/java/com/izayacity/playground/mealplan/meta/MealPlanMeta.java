@@ -46,6 +46,9 @@ public class MealPlanMeta {
                     continue;
                 }
                 for (Meal meal : restaurant.getMealList()) {
+                    if (meal.getDisabled() == 1) {
+                        continue;
+                    }
                     this.mealInfoList.add(new MealModel(
                             meal.getId(),
                             meal.getPrice(),

@@ -1,5 +1,7 @@
 package com.izayacity.playground.mealplan.model;
 
+import com.izayacity.playground.mealplan.domain.MealPlanDomain;
+
 import java.util.Comparator;
 
 /**
@@ -14,7 +16,6 @@ public class MealPlan {
     private MealModel meal0;
     private MealModel meal1;
     private String id;
-
     private Nutrition nutrition = new Nutrition();
 
     public MealPlan() {
@@ -44,6 +45,14 @@ public class MealPlan {
             }
             return 1;
         }
+    }
+
+    public boolean checkHealthy() {
+        return this.nutrition.getEnergy() <= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
+                this.nutrition.getVitamin() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
+                this.nutrition.getAmount() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
+                this.nutrition.getAmount() < MealPlanDomain.NutritionIndex.HIGH.getValue() + MealPlanDomain.NutritionIndex.MEDIUM.getValue() &&
+                !this.meal0.getRestaurantName().equals(this.meal1.getRestaurantName());
     }
 
     public float getTotalCost() {

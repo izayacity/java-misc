@@ -17,7 +17,7 @@
                 <item index="0" id="B0000" weight="4" price="30.8" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="鲅鱼金饺大份"/>
                 <item index="1" id="B0001" weight="4" price="26.0" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="芹菜牛肉饺大份"/>
                 <item index="2" id="B0002" weight="4" price="32.0" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="金品质组合大份（8个鲅鱼+8个藤椒牛肉）"/>
-                <item index="2" id="B0003" weight="4" price="39.0" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="四季健康大份"/>
+                <item index="3" id="B0003" weight="4" price="39.0" staple="4" category="2" energy="1" protein="2" vitamin="0" amount="1" name="四季健康大份"/>
             </restaurant>
             <restaurant index="1" name="赛百味" delivery="0.0">
                 <item index="0" id="B0100" weight="5" price="29.5" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸黑椒厚切牛排"/>
@@ -25,6 +25,8 @@
                 <item index="2" id="B0102" weight="5" price="26.0" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸意大利经典"/>
                 <item index="3" id="B0103" weight="5" price="22.0" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸意大利香肠"/>
                 <item index="4" id="B0104" weight="3" price="24.0" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸火鸡胸"/>
+                <item index="5" id="B0105" weight="3" price="33.5" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸牛油果牛肉三明治"/>
+                <item index="6" id="B0106" weight="3" price="29.5" staple="1" category="4" energy="0" protein="2" vitamin="1" amount="0" name="6寸牛油果鸡肉三明治"/>
             </restaurant>amount="1"
             <restaurant index="2" name="汉堡王" delivery="5.0" disabled="1">
                 <item index="0" id="B0200" weight="2" price="30.0" staple="1" category="6" energy="1" protein="2" vitamin="1" amount="0" name="红烩牛肉皇堡"/>

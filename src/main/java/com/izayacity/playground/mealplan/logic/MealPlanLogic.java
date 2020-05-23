@@ -73,6 +73,10 @@ public class MealPlanLogic {
         return mealPlan;
     }
 
+    public boolean checkAvailability(String mealId) {
+        return this.mealPlanMeta.getMealMap().get(mealId).getWeight() > 0;
+    }
+
     public boolean checkAlike(String mealId0, String mealId1) {
         return this.mealPlanMeta.getMealMap().get(mealId0).getCategory() == this.mealPlanMeta.getMealMap().get(mealId1).getCategory();
     }
@@ -90,7 +94,11 @@ public class MealPlanLogic {
             allMealPlansUtil(budget, gap, mealPlans, meals, lo + 1, hi, visited);
         } else {
             MealPlan mealPlan = this.makeMealPlan(meals.get(lo), meals.get(hi));
-            if (mealPlan.checkHealthy() && !this.checkAlike(meals.get(lo).getId(), meals.get(hi).getId())) {
+            String mealId0 = meals.get(lo).getId();
+            String mealId1 = meals.get(hi).getId();
+
+            if (mealPlan.checkHealthy() && !this.checkAlike(mealId0, mealId1) &&
+                    this.checkAvailability(mealId0) && this.checkAvailability(mealId1)) {
                 mealPlans.add(mealPlan);
             }
             allMealPlansUtil(budget, gap, mealPlans, meals, lo, hi - 1, visited);

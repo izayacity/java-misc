@@ -13,12 +13,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class CasTest {
 
-    private static final CountDownLatch latch = new CountDownLatch(5);
-    private static AtomicInteger i = new AtomicInteger(0);
     private static int p = 0;
 
     public static void main(String[] args) throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(5);
+        AtomicInteger i = new AtomicInteger(0);
         long time = System.currentTimeMillis();
+
         ExecutorService pool = Executors.newFixedThreadPool(5);
         for(int j = 0; j < 5; j++) {
             pool.execute(() -> {

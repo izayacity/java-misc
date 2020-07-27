@@ -50,8 +50,7 @@ public class MealPlan {
     public boolean checkHealthy() {
         return this.nutrition.getEnergy() <= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
                 this.nutrition.getVitamin() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
-                this.nutrition.getAmount() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() &&
-                this.nutrition.getAmount() < MealPlanDomain.NutritionIndex.HIGH.getValue() + MealPlanDomain.NutritionIndex.MEDIUM.getValue() &&
+                this.nutrition.getAmount() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
                 !this.meal0.getRestaurantName().equals(this.meal1.getRestaurantName());
     }
 

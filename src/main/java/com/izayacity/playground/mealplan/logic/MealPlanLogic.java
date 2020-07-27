@@ -78,7 +78,8 @@ public class MealPlanLogic {
     }
 
     public boolean checkAlike(String mealId0, String mealId1) {
-        return this.mealPlanMeta.getMealMap().get(mealId0).getCategory() == this.mealPlanMeta.getMealMap().get(mealId1).getCategory();
+        return this.mealPlanMeta.getMealMap().get(mealId0).getCategory() == this.mealPlanMeta.getMealMap().get(mealId1).getCategory() ||
+                this.mealPlanMeta.getMealMap().get(mealId0).getStaple() == this.mealPlanMeta.getMealMap().get(mealId1).getStaple();
     }
 
     public void allMealPlansUtil(int budget, int gap, List<MealPlan> mealPlans, List<MealModel> meals, int lo, int hi, Set<String> visited) {

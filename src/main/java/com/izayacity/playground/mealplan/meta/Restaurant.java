@@ -3,11 +3,8 @@ package com.izayacity.playground.mealplan.meta;
 import com.izayacity.playground.mealplan.meta.common.Index;
 import com.izayacity.playground.mealplan.meta.common.Name;
 import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * CreatedBy:   Francis Xirui Yang
@@ -27,8 +24,8 @@ public class Restaurant implements Index, Name {
     @Attribute
     private float delivery;
 
-    @ElementList(name = "item", required = false, inline = true)
-    private List<Meal> mealList = new ArrayList<>();
+    @Element(required = false)
+    private MealList meals;
 
     @Attribute(required = false)
     private int disabled;
@@ -50,8 +47,8 @@ public class Restaurant implements Index, Name {
         return delivery;
     }
 
-    public List<Meal> getMealList() {
-        return mealList;
+    public MealList getMeals() {
+        return meals;
     }
 
     public int getDisabled() {

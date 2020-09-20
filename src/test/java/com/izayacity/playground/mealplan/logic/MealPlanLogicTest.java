@@ -44,13 +44,13 @@ class MealPlanLogicTest {
 
     @Test
     void mealsUnderBudget() {
-        List<MealModel> meals = this.mealPlanLogic.mealsUnderBudget(42);
+        List<MealModel> meals = this.mealPlanLogic.mealsUnderBudget(50);
         this.display(meals);
     }
 
     @Test
     void allMealPlans() {
-        List<MealPlan> mealPlans = this.mealPlanLogic.allMealPlans(83, 6 );
+        List<MealPlan> mealPlans = this.mealPlanLogic.allMealPlans(80, 4 );
         this.display(mealPlans);
     }
 }

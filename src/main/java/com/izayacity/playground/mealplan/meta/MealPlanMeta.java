@@ -45,7 +45,7 @@ public class MealPlanMeta {
                 if (restaurant.getDisabled() == 1) {
                     continue;
                 }
-                for (Meal meal : restaurant.getMealList()) {
+                for (Meal meal : restaurant.getMeals().getItemList()) {
                     if (meal.getDisabled() == 1) {
                         continue;
                     }

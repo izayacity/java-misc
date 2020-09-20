@@ -26,7 +26,7 @@ public class MealPlanLogic {
     }
 
     public String getMetaPath() {
-        String prefix = "src/main/java/com/izayacity/playground/mealplan/";
+        String prefix = "src/main/java/com/izayacity/playground/mealplan/configs/";
         return prefix + "mealPlanMeta.xml";
     }
 

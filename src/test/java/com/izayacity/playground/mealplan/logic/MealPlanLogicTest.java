@@ -50,7 +50,7 @@ class MealPlanLogicTest {
 
     @Test
     void allMealPlans() {
-        List<MealPlan> mealPlans = this.mealPlanLogic.allMealPlans(79, 6 );
+        List<MealPlan> mealPlans = this.mealPlanLogic.allMealPlans(84, 8, 5 );
         this.display(mealPlans);
     }
 }

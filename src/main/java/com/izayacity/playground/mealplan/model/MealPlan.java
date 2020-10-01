@@ -29,7 +29,7 @@ public class MealPlan {
     }
 
     public MealPlan(MealModel meal0, MealModel meal1) {
-        this(meal0.getCost() + meal1.getCost(), meal0, meal1);
+        this(meal0.getPrice() + meal1.getPrice(), meal0, meal1);
     }
 
     public static class MealPlanComparator implements Comparator<MealPlan> {
@@ -51,7 +51,7 @@ public class MealPlan {
         return this.nutrition.getEnergy() <= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
                 this.nutrition.getVitamin() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
                 this.nutrition.getAmount() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
-                !this.meal0.getRestaurantName().equals(this.meal1.getRestaurantName());
+                !this.meal0.getRestaurantId().equals(this.meal1.getRestaurantId());
     }
 
     public float getTotalCost() {

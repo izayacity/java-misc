@@ -31,6 +31,7 @@ public class MealPlanMeta {
 
     private List<MealModel> mealInfoList;
     private Map<String, Meal> mealMap;
+    private Map<String, Restaurant> restaurantMap;
 
     public MealPlanMeta() {
     }
@@ -39,21 +40,30 @@ public class MealPlanMeta {
     public void commit() {
         this.mealInfoList = new ArrayList<>();
         this.mealMap = new HashMap<>();
+        this.restaurantMap = new HashMap<>();
 
         for (App app : this.getResources().getAppList()) {
             for (Restaurant restaurant : app.getRestaurantList()) {
                 if (restaurant.getDisabled() == 1) {
                     continue;
                 }
+                String restaurantId = (char)('A' + app.getIndex()) + (restaurant.getIndex() < 10 ? "0" : "") + restaurant.getIndex();
+                this.restaurantMap.put(restaurantId, restaurant);
+
                 for (Meal meal : restaurant.getMeals().getItemList()) {
                     if (meal.getDisabled() == 1) {
                         continue;
                     }
+                    Float onSale = meal.getOnSale();
+                    if (onSale != null) {
+                        onSale += restaurant.getPackaging();
+                    }
                     this.mealInfoList.add(new MealModel(
                             meal.getId(),
-                            meal.getPrice(),
-                            restaurant.getPackaging(),
+                            meal.getPrice() + restaurant.getPackaging(),
                             meal.getName(),
+                            restaurantId,
+                            onSale,
                             restaurant.getName()
                     ));
                     this.mealMap.put(meal.getId(), new Meal(meal));
@@ -81,5 +91,9 @@ public class MealPlanMeta {
 
     public Map<String, Meal> getMealMap() {
         return mealMap;
+    }
+
+    public Map<String, Restaurant> getRestaurantMap() {
+        return restaurantMap;
     }
 }

@@ -4,9 +4,9 @@
         <app index="0" name="七鲜">
             <restaurant index="0" packaging="0.0" name="七鲜">
                 <meals>
-                    <item index="0" id="A0000" weight="2" price="26.9" staple="0" category="3" energy="0" protein="2"
+                    <item index="0" id="A0000" weight="5" price="26.9" staple="3" category="3" energy="0" protein="2"
                           vitamin="2" amount="1" name="主厨沙拉"/>
-                    <item index="1" id="A0001" weight="2" price="19.9" staple="3" category="3" energy="0" protein="1"
+                    <item index="1" id="A0001" weight="5" price="19.9" staple="1" category="4" energy="0" protein="1"
                           vitamin="2" amount="0" name="帕斯雀黑椒牛肉卷"/>
                 </meals>
             </restaurant>
@@ -32,11 +32,11 @@
             </restaurant>
             <restaurant index="1" name="赛百味" packaging="0.0">
                 <meals>
-                    <item index="0" id="B0100" weight="5" price="29.5" staple="1" category="4" energy="0" protein="2"
+                    <item index="0" id="B0100" weight="2" price="29.5" staple="1" category="4" energy="0" protein="2"
                           vitamin="1" amount="0" name="6寸黑椒厚切牛排"/>
-                    <item index="1" id="B0101" weight="5" price="26.0" staple="1" category="4" energy="0" protein="2"
+                    <item index="1" id="B0101" weight="3" price="26.0" staple="1" category="4" energy="0" protein="2"
                           vitamin="1" amount="0" name="6寸意大利经典"/>
-                    <item index="2" id="B0102" weight="5" price="22.0" staple="1" category="4" energy="0" protein="2"
+                    <item index="2" id="B0102" weight="3" price="22.0" staple="1" category="4" energy="0" protein="2"
                           vitamin="1" amount="0" name="6寸意大利香肠"/>
                 </meals>
                 <pricing>
@@ -49,7 +49,7 @@
                 <meals>
                     <item index="0" id="B0200" weight="4" price="45.0" staple="1" category="6" energy="1" protein="2"
                           vitamin="1" amount="2" name="黄金鳕鱼皇堡套餐"/>
-                    <item index="1" id="B0201" weight="3" price="37.0" staple="1" category="6" energy="1" protein="2"
+                    <item index="1" id="B0201" weight="4" price="37.0" staple="1" category="6" energy="1" protein="2"
                           vitamin="1" amount="2" name="狠霸王鱼堡套餐"/>
                 </meals>
                 <pricing>
@@ -80,13 +80,13 @@
                 <meals>
                     <item index="0" id="B0400" weight="3" price="50.0" staple="0" category="7" energy="1" protein="2"
                           vitamin="2" amount="2" name="炸牛排套餐"/>
-                    <item index="1" id="B0401" weight="3" price="42.0" staple="0" category="7" energy="2" protein="2"
+                    <item index="1" id="B0401" weight="2" price="42.0" staple="0" category="7" energy="2" protein="2"
                           vitamin="0" amount="2" name="猪排盖饭"/>
                     <item index="2" id="B0402" weight="4" price="39.0" staple="0" category="7" energy="1" protein="2"
                           vitamin="2" amount="2" name="炸鱼排套餐" onSale="18"/>
                     <item index="3" id="B0403" weight="3" price="48.0" staple="0" category="7" energy="1" protein="2"
                           vitamin="2" amount="2" name="炸猪里脊套餐"/>
-                    <item index="4" id="B0404" weight="3" price="35.0" staple="0" category="7" energy="1" protein="2"
+                    <item index="4" id="B0404" weight="2" price="35.0" staple="0" category="7" energy="1" protein="2"
                           vitamin="2" amount="2" name="炸鸡排套餐"/>
                 </meals>
                 <pricing>
@@ -98,7 +98,7 @@
             </restaurant>
             <restaurant index="5" name="鱼仔村秘制拌饭" packaging="3.0">
                 <meals>
-                    <item index="0" id="B0500" weight="2" price="49.99" staple="0" category="9" energy="0" protein="2"
+                    <item index="0" id="B0500" weight="4" price="49.99" staple="0" category="9" energy="0" protein="2"
                           vitamin="2" amount="2" name="韩式肥牛鱼籽拌饭" onSale="36.99"/>
                 </meals>
                 <pricing>
@@ -130,11 +130,11 @@
             </restaurant>
             <restaurant index="8" name="味千拉面" packaging="3.0">
                 <meals>
-                    <item index="0" id="B0800" weight="2" price="48.0" staple="2" category="7" energy="1" protein="2"
+                    <item index="0" id="B0800" weight="3" price="48.0" staple="2" category="7" energy="1" protein="2"
                           vitamin="1" amount="2" name="大骨浓汤猪软骨拉面"/>
                     <item index="1" id="B0801" weight="2" price="39.0" staple="2" category="7" energy="2" protein="2"
                           vitamin="0" amount="2" name="猪扒盖浇饭"/>
-                    <item index="2" id="B0802" weight="2" price="38.0" staple="2" category="7" energy="1" protein="2"
+                    <item index="2" id="B0802" weight="3" price="38.0" staple="2" category="7" energy="1" protein="2"
                           vitamin="1" amount="2" name="熊本叉烧拉面"/>
                 </meals>
                 <pricing>
@@ -143,9 +143,9 @@
             </restaurant>
             <restaurant index="9" name="Pioneering墨西哥餐吧" packaging="1.0">
                 <meals>
-                    <item index="0" id="B0900" weight="3" price="72.0" staple="1" category="10" energy="0" protein="2"
+                    <item index="0" id="B0900" weight="5" price="72.0" staple="1" category="10" energy="0" protein="2"
                           vitamin="2" amount="1" name="黑椒牛柳Burrito"/>
-                    <item index="1" id="B0901" weight="3" price="63.0" staple="1" category="10" energy="0" protein="2"
+                    <item index="1" id="B0901" weight="5" price="63.0" staple="1" category="10" energy="0" protein="2"
                           vitamin="2" amount="0" name="炸鱼排Taco"/>
                 </meals>
                 <pricing>
@@ -177,15 +177,15 @@
             </restaurant>
             <restaurant index="11" name="将太无二" packaging="1.0">
                 <meals>
-                    <item index="0" id="B1100" weight="3" price="43.0" staple="0" category="8" energy="1" protein="2"
+                    <item index="0" id="B1100" weight="2" price="43.0" staple="0" category="8" energy="1" protein="2"
                           vitamin="1" amount="2" name="鳗鱼牛肉"/>
                 </meals>
             </restaurant>
             <restaurant index="12" name="原心食堂" packaging="1.0">
                 <meals>
-                    <item index="0" id="B1200" weight="3" price="62.0" staple="0" category="3" energy="0" protein="2"
+                    <item index="0" id="B1200" weight="5" price="62.0" staple="0" category="3" energy="0" protein="2"
                           vitamin="2" amount="2" name="女汉子的和牛波奇"/>
-                    <item index="1" id="B1201" weight="3" price="42.0" staple="0" category="3" energy="0" protein="2"
+                    <item index="1" id="B1201" weight="5" price="42.0" staple="0" category="3" energy="0" protein="2"
                           vitamin="2" amount="2" name="美颜后的金枪鱼牛油果波奇"/>
                 </meals>
                 <pricing>
@@ -196,11 +196,11 @@
             </restaurant>
             <restaurant index="13" name="Lush汉堡" packaging="1.0">
                 <meals>
-                    <item index="0" id="B1300" weight="4" price="58.0" staple="3" category="6" energy="2" protein="2"
+                    <item index="0" id="B1300" weight="4" price="58.0" staple="1" category="6" energy="2" protein="2"
                           vitamin="1" amount="2" name="特色汉堡套餐"/>
-                    <item index="1" id="B1301" weight="3" price="68.0" staple="3" category="6" energy="2" protein="2"
+                    <item index="1" id="B1301" weight="3" price="68.0" staple="1" category="6" energy="2" protein="2"
                           vitamin="1" amount="2" name="豪华汉堡套餐"/>
-                    <item index="2" id="B1302" weight="3" price="68.0" staple="3" category="6" energy="2" protein="2"
+                    <item index="2" id="B1302" weight="3" price="68.0" staple="1" category="6" energy="2" protein="2"
                           vitamin="1" amount="2" name="烧烤培根汉堡套餐"/>
                 </meals>
                 <pricing>
@@ -211,13 +211,13 @@
             </restaurant>
             <restaurant index="14" name="站点比萨" packaging="0.0">
                 <meals>
-                    <item index="0" id="B1400" weight="4" price="60.0" staple="3" category="5" energy="2" protein="2"
+                    <item index="0" id="B1400" weight="4" price="60.0" staple="1" category="5" energy="2" protein="2"
                           vitamin="1" amount="2" name="站点特色10英寸"/>
-                    <item index="1" id="B1401" weight="2" price="55.0" staple="3" category="5" energy="2" protein="2"
+                    <item index="1" id="B1401" weight="2" price="55.0" staple="1" category="5" energy="2" protein="2"
                           vitamin="1" amount="2" name="BBQ鸡肉10英寸"/>
-                    <item index="2" id="B1402" weight="4" price="58.0" staple="3" category="5" energy="2" protein="2"
+                    <item index="2" id="B1402" weight="4" price="58.0" staple="1" category="5" energy="2" protein="2"
                           vitamin="1" amount="2" name="布鲁克林10英寸"/>
-                    <item index="3" id="B1403" weight="4" price="55.0" staple="3" category="5" energy="2" protein="2"
+                    <item index="3" id="B1403" weight="4" price="55.0" staple="1" category="5" energy="2" protein="2"
                           vitamin="1" amount="2" name="夏威夷10英寸"/>
                 </meals>
                 <pricing>

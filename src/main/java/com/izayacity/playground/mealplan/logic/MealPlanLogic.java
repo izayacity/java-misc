@@ -64,12 +64,12 @@ public class MealPlanLogic {
         this.display(meals);
 
         Set<String> visited = new HashSet<>();
-        allMealPlansUtil(budget, gap, mealPlans, meals, 0, meals.size() - 1, visited, restaurantMap);
+        allMealPlansUtil(budget, gap, mealPlans, meals, 0, meals.size() - 1, visited);
         mealPlans.sort(new MealPlan.MealPlanComparator());
         return mealPlans;
     }
 
-    public MealPlan makeMealPlan(MealModel meal0, MealModel meal1, Map<String, Restaurant> restaurantMap) {
+    public MealPlan makeMealPlan(MealModel meal0, MealModel meal1) {
         MealPlan mealPlan = new MealPlan(meal0, meal1);
         Nutrition nutrition = new Nutrition(
                 this.mealPlanMeta.getMealMap().get(meal0.getId()).getEnergy() + this.mealPlanMeta.getMealMap().get(meal1.getId()).getEnergy(),
@@ -129,7 +129,7 @@ public class MealPlanLogic {
                 this.mealPlanMeta.getMealMap().get(mealId0).getStaple() == this.mealPlanMeta.getMealMap().get(mealId1).getStaple();
     }
 
-    public void allMealPlansUtil(int budget, int gap, List<MealPlan> mealPlans, List<MealModel> meals, int lo, int hi, Set<String> visited, Map<String, Restaurant> restaurantMap) {
+    public void allMealPlansUtil(int budget, int gap, List<MealPlan> mealPlans, List<MealModel> meals, int lo, int hi, Set<String> visited) {
         String hKey = meals.get(lo).getId() + meals.get(hi).getId();
         if (lo >= hi || visited.contains(hKey)) {
             return;
@@ -137,11 +137,11 @@ public class MealPlanLogic {
         visited.add(hKey);
         float diff = budget - meals.get(lo).getPrice() - meals.get(hi).getPrice();
         if (diff < 0) {
-            allMealPlansUtil(budget, gap, mealPlans, meals, lo, hi - 1, visited, restaurantMap);
+            allMealPlansUtil(budget, gap, mealPlans, meals, lo, hi - 1, visited);
         } else if (diff > gap) {
-            allMealPlansUtil(budget, gap, mealPlans, meals, lo + 1, hi, visited, restaurantMap);
+            allMealPlansUtil(budget, gap, mealPlans, meals, lo + 1, hi, visited);
         } else {
-            MealPlan mealPlan = this.makeMealPlan(meals.get(lo), meals.get(hi), restaurantMap);
+            MealPlan mealPlan = this.makeMealPlan(meals.get(lo), meals.get(hi));
             String mealId0 = meals.get(lo).getId();
             String mealId1 = meals.get(hi).getId();
 
@@ -149,8 +149,8 @@ public class MealPlanLogic {
                     this.checkAvailability(mealId0) && this.checkAvailability(mealId1)) {
                 mealPlans.add(mealPlan);
             }
-            allMealPlansUtil(budget, gap, mealPlans, meals, lo, hi - 1, visited, restaurantMap);
-            allMealPlansUtil(budget, gap, mealPlans, meals, lo + 1, hi, visited, restaurantMap);
+            allMealPlansUtil(budget, gap, mealPlans, meals, lo, hi - 1, visited);
+            allMealPlansUtil(budget, gap, mealPlans, meals, lo + 1, hi, visited);
         }
     }
 }

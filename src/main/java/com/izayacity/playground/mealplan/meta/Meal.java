@@ -51,6 +51,9 @@ public class Meal implements Index, Name, Weight {
     @Attribute
     private int amount;
 
+    @Attribute(required = false)
+    private Float onSale;
+
     public Meal() {
     }
 
@@ -67,6 +70,7 @@ public class Meal implements Index, Name, Weight {
         this.name = obj.getName();
         this.disabled = obj.getDisabled();
         this.amount = obj.getAmount();
+        this.onSale = obj.getOnSale();
     }
 
     @Override
@@ -118,5 +122,9 @@ public class Meal implements Index, Name, Weight {
 
     public int getAmount() {
         return amount;
+    }
+
+    public Float getOnSale() {
+        return onSale;
     }
 }

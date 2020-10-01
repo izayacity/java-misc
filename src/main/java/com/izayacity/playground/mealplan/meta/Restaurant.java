@@ -22,10 +22,13 @@ public class Restaurant implements Index, Name {
     private String name;
 
     @Attribute
-    private float delivery;
+    private float packaging;
 
     @Element(required = false)
     private MealList meals;
+
+    @Element(required = false)
+    private Pricing pricing;
 
     @Attribute(required = false)
     private int disabled;
@@ -43,12 +46,16 @@ public class Restaurant implements Index, Name {
         return name;
     }
 
-    public float getDelivery() {
-        return delivery;
+    public float getPackaging() {
+        return packaging;
     }
 
     public MealList getMeals() {
         return meals;
+    }
+
+    public Pricing getPricing() {
+        return pricing;
     }
 
     public int getDisabled() {

@@ -52,7 +52,7 @@ public class MealPlanMeta {
                     this.mealInfoList.add(new MealModel(
                             meal.getId(),
                             meal.getPrice(),
-                            restaurant.getDelivery(),
+                            restaurant.getPackaging(),
                             meal.getName(),
                             restaurant.getName()
                     ));

@@ -12,7 +12,7 @@ public class MealModel {
 
     private String id;
     private float price;
-    private float delivery;
+    private float packaging;
     private String name;
     private String restaurantName;
 
@@ -22,7 +22,7 @@ public class MealModel {
     public MealModel(String id, float price, float delivery, String name, String restaurantName) {
         this.id = id;
         this.price = price;
-        this.delivery = delivery;
+        this.packaging = delivery;
         this.name = name;
         this.restaurantName = restaurantName;
     }
@@ -30,7 +30,7 @@ public class MealModel {
     public MealModel(MealModel obj) {
         this.id = obj.getId();
         this.price = obj.getPrice();
-        this.delivery = obj.getDelivery();
+        this.packaging = obj.getPackaging();
         this.name = obj.getName();
         this.restaurantName = obj.getRestaurantName();
     }
@@ -58,8 +58,8 @@ public class MealModel {
         return price;
     }
 
-    public float getDelivery() {
-        return delivery;
+    public float getPackaging() {
+        return packaging;
     }
 
     public String getName() {
@@ -71,6 +71,6 @@ public class MealModel {
     }
 
     public float getCost() {
-        return price + delivery;
+        return this.price + this.packaging;
     }
 }

@@ -50,7 +50,14 @@ class MealPlanLogicTest {
 
     @Test
     void allMealPlans() {
-        List<MealPlan> mealPlans = this.mealPlanLogic.allMealPlans(84, 8, 5 );
+        List<MealPlan> mealPlans = this.mealPlanLogic.allMealPlans(84, 8, 5);
         this.display(mealPlans);
+    }
+
+    @Test
+    void reOrderMealPlanIds() {
+        String[][] mealIdArr = new String[][]{{"A", "C"}, {"A", "B"}, {"B", "C"}, {"A", "C"}, {"A", "D"}, {"B", "D"}, {"A", "B"}, {"C", "D"}, {"C", "F"}, {"B", "F"}, {"D", "F"}, {"A", "D"}};
+        List<String[]> mealIds = this.mealPlanLogic.mealIdsMst(mealIdArr);
+        this.display(mealIds);
     }
 }

@@ -67,4 +67,29 @@ class GraphTest {
         Graph<Character> graph = newGraphWithOptions(false);
         graph.topologicalSort();
     }
+
+    public void display(Object obj) {
+        if (obj == null) {
+            System.out.println("null");
+        } else if (obj instanceof String) {
+            System.out.println(obj);
+        } else {
+            Gson gson = new Gson();
+            System.out.println(gson.toJson(obj));
+        }
+    }
+
+    @Test
+    public void primMst() {
+        Graph<Character> graph = newGraph();
+        List<Graph.EdgeInfo<Character>> result = graph.primMst('A');
+        display(result);
+    }
+
+    @Test
+    public void kruskalMst() {
+        Graph<Character> graph = newGraph();
+        List<Graph.EdgeInfo<Character>> result = graph.kruskalMst();
+        display(result);
+    }
 }

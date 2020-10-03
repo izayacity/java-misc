@@ -3,17 +3,27 @@ package com.izayacity.algorithms.graph;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.izayacity.algorithms.unionFind.UnionFind;
 
 import java.util.*;
 
+/**
+ * CreatedBy:   Francis Xirui Yang
+ * Date:        10/3/20
+ * mailto:      izayacity@gmail.com
+ * version:     1.0 since 1.0
+ *
+ * @author francis
+ */
 public class Graph<T> {
 
-    private Map<T, Map<T, Integer>> adjListMap;
-    private Set<T> graphNodes;
+    private final Map<T, Map<T, Integer>> adjListMap;
+    public final static int SRC_NODE = 0;
+    public final static int DEST_NODE = 1;
+    public final static int EDGE_NODES = 2;
 
     public Graph(final List<GraphEdge<T>> edges, final boolean undirected) {
         this.adjListMap = Maps.newHashMap();
-        this.graphNodes = Sets.newHashSet();
 
         for (GraphEdge<T> edge : edges) {
             this.addEdge(edge.getFromNode(), edge.getToNode(), edge.getWeight(), undirected);
@@ -33,8 +43,6 @@ public class Graph<T> {
             this.adjListMap.put(src, new HashMap<>());
         }
         this.adjListMap.get(src).put(dest, weight);
-        this.graphNodes.add(src);
-        this.graphNodes.add(dest);
     }
 
     public void addUndirectedEdge(final T src, final T dest, final int weight) {
@@ -64,7 +72,7 @@ public class Graph<T> {
     }
 
     public int size() {
-        return this.graphNodes.size();
+        return this.adjListMap.size();
     }
 
     public int edges() {
@@ -138,7 +146,7 @@ public class Graph<T> {
         List<GraphNodeInfo<T>> resList = Lists.newArrayList();
         Set<T> visited = new HashSet<>();
 
-        for (T node : this.graphNodes) {
+        for (T node : this.adjListMap.keySet()) {
             if (!visited.contains(node)) {
                 topologicalSortUtil(node, visited, resList);
             }
@@ -159,12 +167,85 @@ public class Graph<T> {
             }
         }
         int resSize = resList.size();
-        resList.add(new GraphNodeInfo<>(currNode, this.graphNodes.size() - resSize));
+        resList.add(new GraphNodeInfo<>(currNode, this.size() - resSize));
+    }
+
+    public List<EdgeInfo<T>> primMst(T startNode) {
+        List<EdgeInfo<T>> list = new ArrayList<>();
+        Set<T> visitedSet = new HashSet<>();
+        PriorityQueue<EdgeInfo<T>> pq = new PriorityQueue<>(this.adjListMap.size(), Comparator.comparingInt(EdgeInfo::getVal));
+        pq.offer(new EdgeInfo<>(null, startNode, 0));
+        visitedSet.add(startNode);
+
+        while (!pq.isEmpty()) {
+            EdgeInfo<T> node = pq.poll();
+
+            for (Map.Entry<T, Integer> entry : this.adjListMap.get(node.getDest()).entrySet()) {
+                if (visitedSet.contains(entry.getKey())) {
+                    continue;
+                }
+                EdgeInfo<T> edge = new EdgeInfo<>(node.getDest(), entry.getKey(), entry.getValue());
+                pq.offer(edge);
+                list.add(new EdgeInfo<>(edge.getSrc(), edge.getDest(), edge.getVal()));
+                visitedSet.add(entry.getKey());
+            }
+        }
+        return list;
+    }
+
+    public List<EdgeInfo<T>> kruskalMst() {
+        List<EdgeInfo<T>> list = new ArrayList<>();
+        List<EdgeInfo<T>> edgeList = new ArrayList<>();
+
+        for (Map.Entry<T, Map<T, Integer>> entry : this.adjListMap.entrySet()) {
+            T src = entry.getKey();
+
+            for (Map.Entry<T, Integer> edgeEntry : this.adjListMap.get(src).entrySet()) {
+                edgeList.add(new EdgeInfo<>(src, edgeEntry.getKey(), edgeEntry.getValue()));
+            }
+        }
+        edgeList.sort(Comparator.comparingInt(EdgeInfo::getVal));
+        UnionFind<T> edgeUnion = new UnionFind<>(new ArrayList<>(this.adjListMap.keySet()));
+
+        for (EdgeInfo<T> edge : edgeList) {
+            if (edgeUnion.find(edge.getSrc()) == edgeUnion.find(edge.getDest())) {
+                continue;
+            }
+            edgeUnion.union(edge.getSrc(), edge.getDest());
+            list.add(edge);
+        }
+        return list;
+    }
+
+    public static class EdgeInfo<T> {
+
+        private final T src;
+        private final T dest;
+        private final int val;
+
+        public EdgeInfo(T src, T dest, int val) {
+            this.src = src;
+            this.dest = dest;
+            this.val = val;
+        }
+
+        public T getSrc() {
+            return src;
+        }
+
+        public T getDest() {
+            return dest;
+        }
+
+        public int getVal() {
+            return val;
+        }
     }
 
     public static class GraphNodeInfo<T> {
-        private T node;
-        private int val;
+
+        private final T node;
+        private final int val;
 
         public GraphNodeInfo(T node, int val) {
             this.node = node;

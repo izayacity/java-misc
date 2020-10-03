@@ -24,14 +24,13 @@ class GraphTest {
                 new GraphEdge<>('D', 'F'),
                 new GraphEdge<>('G', 'Z')
         );
-        return new Graph<Character>(edges, undirected);
+        return new Graph<>(edges, undirected);
     }
 
     @Test
     void addEdgeTest() {
         Graph<Character> graph = newGraph();
         Assertions.assertNotNull(graph);
-        //System.out.println(gson.toJson(graph));
     }
 
     @Test

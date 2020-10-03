@@ -23,6 +23,8 @@ import static com.izayacity.algorithms.graph.Graph.*;
  * Date:        4/26/20
  * mailto:      izayacity@gmail.com
  * version:     1.0 since 1.0
+ *
+ * @author francis
  */
 public class MealPlanLogic {
 
@@ -51,6 +53,7 @@ public class MealPlanLogic {
     public List<MealModel> mealsUnderBudget(int budget) {
         LinkedList<MealModel> items = new LinkedList<>();
         List<MealModel> meals = this.getMealPlanMeta().getMealInfoList();
+
         for (int i = 0; i < meals.size(); i++) {
             if (meals.get(i).getPrice() > budget) {
                 break;
@@ -60,22 +63,43 @@ public class MealPlanLogic {
         return items;
     }
 
+    public String[][] arrListToArr(List<String[]> arrList) {
+        String[][] arr = new String[arrList.size()][];
+
+        for (int i = 0; i < arrList.size(); i++) {
+            arr[i] = arrList.get(i);
+        }
+        return arr;
+    }
+
     public List<MealPlan> allMealPlans(int budget, int gap, int people) {
         List<MealPlan> mealPlans = new ArrayList<>();
         List<MealModel> meals = this.getMealPlanMeta().getMealInfoList();
         Map<String, Restaurant> restaurantMap = this.getMealPlanMeta().getRestaurantMap();
         meals = this.processPricing(meals, restaurantMap, people);
 
-        Set<String> visited = new HashSet<>();
-        allMealPlansUtil(budget, gap, mealPlans, meals, 0, meals.size() - 1, visited);
-
+        allMealPlansUtil(budget, gap, mealPlans, meals, 0, meals.size() - 1, new HashSet<>());
         List<String[]> mealPlanIds = this.getMealPlanIds(mealPlans);
-        String[][] mealIdArrs = new String[mealPlanIds.size()][EDGE_NODES];
+        String[][] mealIdArrs = this.arrListToArr(mealPlanIds);
 
-        for (int i = 0; i < mealPlanIds.size(); i++) {
-            mealIdArrs[i] = mealPlanIds.get(i);
-        }
-        List<String[]> mstIds = this.mealIdsMst(mealIdArrs);
+        List<String[]> mstIdList = this.mealIdsMst(mealIdArrs);
+        String[][] mstIdArr = this.arrListToArr(mstIdList);
+        List<String[]> restaurantIdArrList = this.restaurantIdFromMealIds(mstIdArr);
+        String[][] restaurantIdArr = this.arrListToArr(restaurantIdArrList);
+        Map<String, Integer> ridWeight = this.weightMap(restaurantIdArr);
+
+        System.out.println("Weight of restaurants:");
+        display(ridWeight);
+
+        List<MealPlan> mstMealPlans = this.filterMstMealPlans(mealPlans, mstIdList);
+        mstMealPlans.sort((m1, m2) -> (
+                ridWeight.get(m2.getMeal0().getRestaurantId()) + ridWeight.get(m2.getMeal1().getRestaurantId())
+                        - ridWeight.get(m1.getMeal0().getRestaurantId()) - ridWeight.get(m1.getMeal1().getRestaurantId())
+        ));
+        return this.reOrderMealPlans(mstMealPlans);
+    }
+
+    public List<MealPlan> filterMstMealPlans(List<MealPlan> mealPlans, List<String[]> mstIds) {
         List<MealPlan> mstMealPlans = new ArrayList<>();
         Set<String> mealPlanIdSet = new HashSet<>();
 
@@ -91,7 +115,6 @@ public class MealPlanLogic {
             }
             mstMealPlans.add(mealPlan);
         }
-        mstMealPlans.sort(new MealPlan.MealPlanComparator());
         return mstMealPlans;
     }
 
@@ -191,18 +214,36 @@ public class MealPlanLogic {
 
     public List<GraphEdge<String>> generateGraphEdges(String[][] mealIdArr) {
         List<GraphEdge<String>> list = new ArrayList<>();
-        Map<String, Integer> weightMap = new HashMap<>();
+        Map<String, Integer> weightMap = this.weightMap(mealIdArr);
 
-        for (int i = 0; i < mealIdArr.length - 1; i++) {
-            String mealId0 = mealIdArr[i][SRC_NODE];
-            String mealId1 = mealIdArr[i][DEST_NODE];
-            this.addWeight(weightMap, mealId0);
-            this.addWeight(weightMap, mealId1);
-        }
-        for (int i = 0; i < mealIdArr.length - 1; i++) {
+        for (int i = 0; i < mealIdArr.length; i++) {
             String mealId0 = mealIdArr[i][SRC_NODE];
             String mealId1 = mealIdArr[i][DEST_NODE];
             list.add(new GraphEdge<>(mealId0, mealId1, weightMap.get(mealId0) + weightMap.get(mealId1)));
+        }
+        return list;
+    }
+
+    public Map<String, Integer> weightMap(String[][] arr) {
+        Map<String, Integer> weightMap = new HashMap<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            this.addWeight(weightMap, arr[i][SRC_NODE]);
+            this.addWeight(weightMap, arr[i][DEST_NODE]);
+        }
+        return weightMap;
+    }
+
+    public List<String[]> restaurantIdFromMealIds(String[][] mealIdArr) {
+        List<String[]> list = new ArrayList<>();
+        Map<String, MealModel> mealInfoMap = this.getMealPlanMeta().getMealInfoMap();
+
+        for (int i = 0; i < mealIdArr.length; i++) {
+            String mealId0 = mealIdArr[i][SRC_NODE];
+            String mealId1 = mealIdArr[i][DEST_NODE];
+            String rid0 = mealInfoMap.get(mealId0).getRestaurantId();
+            String rid1 = mealInfoMap.get(mealId1).getRestaurantId();
+            list.add(new String[]{rid0, rid1});
         }
         return list;
     }
@@ -220,11 +261,89 @@ public class MealPlanLogic {
         List<GraphEdge<String>> graphEdges = this.generateGraphEdges(mealIdArr);
         Graph<String> graph = new Graph<>(graphEdges, true);
         List<Graph.EdgeInfo<String>> mst = graph.kruskalMst();
+
+        System.out.println("mealIdsMst:");
         display(mst);
 
         for (Graph.EdgeInfo<String> edgeInfo : mst) {
             mealIdList.add(new String[]{edgeInfo.getSrc(), edgeInfo.getDest()});
         }
         return mealIdList;
+    }
+
+    public List<MealPlan> reOrderMealPlans(List<MealPlan> mealPlans) {
+        List<String> prevList = new ArrayList<>();
+
+        for (int i = 0; i < mealPlans.size(); i++) {
+            String rid0 = mealPlans.get(i).getMeal0().getRestaurantId();
+            String rid1 = mealPlans.get(i).getMeal1().getRestaurantId();
+
+            if (prevList.isEmpty()) {
+                prevList.add(rid0);
+                prevList.add(rid1);
+                continue;
+            }
+            Set<String> tmpSet = new HashSet<>();
+            tmpSet.add(prevList.get(prevList.size() - 1));
+            tmpSet.add(prevList.get(prevList.size() - 2));
+
+            if (tmpSet.contains(rid0) || tmpSet.contains(rid1)) {
+                int index = this.findSwapIndex(mealPlans, i + 1, tmpSet);
+                if (index == -1) {
+                    return mealPlans.subList(0, i);
+                }
+                this.listSwap(mealPlans, i, index);
+            } else if (prevList.size() > 2) {
+                tmpSet.addAll(prevList);
+
+                if (tmpSet.contains(rid0) && tmpSet.contains(rid1)) {
+                    int index = this.findSwapIndex(mealPlans, i + 1,
+                            new HashSet<>(Arrays.asList(prevList.get(0), prevList.get(2), prevList.get(3))));
+                    if (index == -1) {
+                        index = this.findSwapIndex(mealPlans, i + 1,
+                                new HashSet<>(Arrays.asList(prevList.get(1), prevList.get(2), prevList.get(3))));
+                    }
+                    if (index == -1) {
+                        return mealPlans.subList(0, i);
+                    }
+                    this.listSwap(mealPlans, i, index);
+                }
+            }
+            rid0 = mealPlans.get(i).getMeal0().getRestaurantId();
+            rid1 = mealPlans.get(i).getMeal1().getRestaurantId();
+
+            if (prevList.size() == 2) {
+                prevList.add(rid0);
+                prevList.add(rid1);
+            } else {
+                prevList.set(0, prevList.get(2));
+                prevList.set(1, prevList.get(3));
+                prevList.set(2, rid0);
+                prevList.set(3, rid1);
+            }
+        }
+        return mealPlans;
+    }
+
+    public int findSwapIndex(List<MealPlan> mealPlans, int startIndex, Set<String> ridSet) {
+        if (startIndex >= mealPlans.size()) {
+            return -1;
+        }
+        for (int i = startIndex; i < mealPlans.size(); i++) {
+            String rid0 = mealPlans.get(i).getMeal0().getRestaurantId();
+            String rid1 = mealPlans.get(i).getMeal1().getRestaurantId();
+
+            if (!ridSet.contains(rid0) && !ridSet.contains(rid1)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public <T> List<T> listSwap(List<T> list, int i, int j) {
+        T tmp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, tmp);
+        return list;
     }
 }

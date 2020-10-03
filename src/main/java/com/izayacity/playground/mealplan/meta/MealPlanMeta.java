@@ -32,6 +32,7 @@ public class MealPlanMeta {
     private List<MealModel> mealInfoList;
     private Map<String, Meal> mealMap;
     private Map<String, Restaurant> restaurantMap;
+    private Map<String, MealModel> mealInfoMap;
 
     public MealPlanMeta() {
     }
@@ -41,6 +42,7 @@ public class MealPlanMeta {
         this.mealInfoList = new ArrayList<>();
         this.mealMap = new HashMap<>();
         this.restaurantMap = new HashMap<>();
+        this.mealInfoMap = new HashMap<>();
 
         for (App app : this.getResources().getAppList()) {
             for (Restaurant restaurant : app.getRestaurantList()) {
@@ -58,15 +60,17 @@ public class MealPlanMeta {
                     if (onSale != null) {
                         onSale += restaurant.getPackaging();
                     }
-                    this.mealInfoList.add(new MealModel(
+                    MealModel mealModel = new MealModel(
                             meal.getId(),
                             meal.getPrice() + restaurant.getPackaging(),
                             meal.getName(),
                             restaurantId,
                             onSale,
                             restaurant.getName()
-                    ));
+                    );
+                    this.mealInfoList.add(mealModel);
                     this.mealMap.put(meal.getId(), new Meal(meal));
+                    this.mealInfoMap.put(mealModel.getId(), new MealModel(mealModel));
                 }
             }
         }
@@ -95,5 +99,9 @@ public class MealPlanMeta {
 
     public Map<String, Restaurant> getRestaurantMap() {
         return restaurantMap;
+    }
+
+    public Map<String, MealModel> getMealInfoMap() {
+        return mealInfoMap;
     }
 }

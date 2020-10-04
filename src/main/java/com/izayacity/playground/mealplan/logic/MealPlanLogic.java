@@ -93,7 +93,12 @@ public class MealPlanLogic {
                 ridWeight.get(m1.getMeal0().getRestaurantId()) + ridWeight.get(m1.getMeal1().getRestaurantId())
                         - ridWeight.get(m2.getMeal0().getRestaurantId()) - ridWeight.get(m2.getMeal1().getRestaurantId())
         ));
-        return this.reOrderMealPlans(mstMealPlans);
+        List<MealPlan> reOrderedMealPlans = this.reOrderMealPlans(mstMealPlans);
+
+        for (int i = 0; i < reOrderedMealPlans.size(); i++) {
+            reOrderedMealPlans.get(i).setIndex(i);
+        }
+        return reOrderedMealPlans;
     }
 
     public List<MealPlan> filterMstMealPlans(List<MealPlan> mealPlans, List<String[]> mstIds) {

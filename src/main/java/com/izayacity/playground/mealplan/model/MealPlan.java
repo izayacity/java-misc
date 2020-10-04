@@ -14,10 +14,11 @@ import java.util.Comparator;
  */
 public class MealPlan {
 
+    private Integer index;
+    private String id;
     private float totalCost;
     private MealModel meal0;
     private MealModel meal1;
-    private String id;
     private Nutrition nutrition = new Nutrition();
 
     public MealPlan() {
@@ -78,5 +79,13 @@ public class MealPlan {
 
     public void setNutrition(Nutrition nutrition) {
         this.nutrition = nutrition;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 }

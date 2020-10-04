@@ -78,15 +78,15 @@
             </restaurant>
             <restaurant index="4" name="双马印象咖喱炸排店" packaging="2.0">
                 <meals>
-                    <item index="0" id="B0400" weight="3" price="50.0" staple="0" category="7" energy="1" protein="2"
+                    <item index="0" id="B0400" weight="3" price="50.0" staple="5" category="7" energy="1" protein="2"
                           vitamin="2" amount="2" name="炸牛排套餐"/>
-                    <item index="1" id="B0401" weight="2" price="42.0" staple="0" category="7" energy="2" protein="2"
+                    <item index="1" id="B0401" weight="2" price="42.0" staple="5" category="7" energy="2" protein="2"
                           vitamin="0" amount="2" name="猪排盖饭"/>
-                    <item index="2" id="B0402" weight="4" price="39.0" staple="0" category="7" energy="1" protein="2"
+                    <item index="2" id="B0402" weight="4" price="39.0" staple="5" category="7" energy="1" protein="2"
                           vitamin="2" amount="2" name="炸鱼排套餐" onSale="18"/>
-                    <item index="3" id="B0403" weight="3" price="48.0" staple="0" category="7" energy="1" protein="2"
+                    <item index="3" id="B0403" weight="3" price="48.0" staple="5" category="7" energy="1" protein="2"
                           vitamin="2" amount="2" name="炸猪里脊套餐"/>
-                    <item index="4" id="B0404" weight="2" price="35.0" staple="0" category="7" energy="1" protein="2"
+                    <item index="4" id="B0404" weight="2" price="35.0" staple="5" category="7" energy="1" protein="2"
                           vitamin="2" amount="2" name="炸鸡排套餐"/>
                 </meals>
                 <pricing>
@@ -145,7 +145,7 @@
                 <meals>
                     <item index="0" id="B0900" weight="5" price="72.0" staple="1" category="10" energy="0" protein="2"
                           vitamin="2" amount="1" name="黑椒牛柳Burrito"/>
-                    <item index="1" id="B0901" weight="5" price="63.0" staple="1" category="10" energy="1" protein="2"
+                    <item index="1" id="B0901" weight="5" price="63.0" staple="5" category="10" energy="1" protein="2"
                           vitamin="2" amount="0" name="炸鱼排Taco"/>
                 </meals>
                 <pricing>
@@ -219,9 +219,9 @@
             </restaurant>
             <restaurant index="15" name="惠比寿炸猪排" packaging="5.0">
                 <meals>
-                    <item index="0" id="B1500" weight="4" price="49.0" staple="0" category="7" energy="2" protein="2"
+                    <item index="0" id="B1500" weight="4" price="49.0" staple="5" category="7" energy="2" protein="2"
                           vitamin="2" amount="2" name="里脊炸猪排套餐"/>
-                    <item index="1" id="B1501" weight="4" price="49.0" staple="0" category="7" energy="2" protein="2"
+                    <item index="1" id="B1501" weight="4" price="49.0" staple="5" category="7" energy="2" protein="2"
                           vitamin="2" amount="2" name="炸猪排盖饭套餐"/>
                 </meals>
                 <pricing>
@@ -275,6 +275,7 @@
             <item index="2" weight="1" name="面条"/>
             <item index="3" weight="4" name="沙拉"/>
             <item index="4" weight="1" name="饺子"/>
+            <item index="5" weight="1" name="炸物"/>
         </stapleFood>
         <category>
             <item index="0" weight="4" name="粤菜"/>

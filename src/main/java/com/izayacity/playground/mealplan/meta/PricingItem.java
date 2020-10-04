@@ -7,8 +7,10 @@ import org.simpleframework.xml.Root;
 /**
  * CreatedBy:   Francis Xirui Yang
  * Date:        9/22/20
- * mailto:      xiruiyang@hiretual.com
+ * mailto:      izayacity@gmail.com
  * version:     1.0 since 1.0
+ *
+ * @author francis
  */
 @Root(name = "item")
 public class PricingItem implements Index {

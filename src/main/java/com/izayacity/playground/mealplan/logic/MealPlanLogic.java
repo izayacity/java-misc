@@ -88,13 +88,10 @@ public class MealPlanLogic {
         String[][] restaurantIdArr = this.arrListToArr(restaurantIdArrList);
         Map<String, Integer> ridWeight = this.weightMap(restaurantIdArr);
 
-        System.out.println("Weight of restaurants:");
-        display(ridWeight);
-
         List<MealPlan> mstMealPlans = this.filterMstMealPlans(mealPlans, mstIdList);
         mstMealPlans.sort((m1, m2) -> (
-                ridWeight.get(m2.getMeal0().getRestaurantId()) + ridWeight.get(m2.getMeal1().getRestaurantId())
-                        - ridWeight.get(m1.getMeal0().getRestaurantId()) - ridWeight.get(m1.getMeal1().getRestaurantId())
+                ridWeight.get(m1.getMeal0().getRestaurantId()) + ridWeight.get(m1.getMeal1().getRestaurantId())
+                        - ridWeight.get(m2.getMeal0().getRestaurantId()) - ridWeight.get(m2.getMeal1().getRestaurantId())
         ));
         return this.reOrderMealPlans(mstMealPlans);
     }
@@ -175,7 +172,8 @@ public class MealPlanLogic {
 
     public boolean checkAlike(String mealId0, String mealId1) {
         return this.mealPlanMeta.getMealMap().get(mealId0).getCategory() == this.mealPlanMeta.getMealMap().get(mealId1).getCategory() ||
-                this.mealPlanMeta.getMealMap().get(mealId0).getStaple() == this.mealPlanMeta.getMealMap().get(mealId1).getStaple();
+                this.mealPlanMeta.getMealMap().get(mealId0).getStaple() == this.mealPlanMeta.getMealMap().get(mealId1).getStaple() ||
+                this.mealPlanMeta.getMealInfoMap().get(mealId0).getRestaurantId().equals(this.mealPlanMeta.getMealInfoMap().get(mealId1).getRestaurantId());
     }
 
     public void allMealPlansUtil(int budget, int gap, List<MealPlan> mealPlans, List<MealModel> meals, int lo, int hi, Set<String> visited) {
@@ -345,5 +343,48 @@ public class MealPlanLogic {
         list.set(i, list.get(j));
         list.set(j, tmp);
         return list;
+    }
+
+    public MealPlanStats mealPlansStats(List<MealPlan> mealPlans) {
+        MealPlanStats stats = new MealPlanStats();
+
+        List<String[]> mealPlanIds = this.getMealPlanIds(mealPlans);
+        String[][] mstIdArr = this.arrListToArr(mealPlanIds);
+        List<String[]> restaurantIdArrList = this.restaurantIdFromMealIds(mstIdArr);
+        String[][] restaurantIdArr = this.arrListToArr(restaurantIdArrList);
+        Map<String, Integer> ridWeight = this.weightMap(restaurantIdArr);
+
+        List<MealPlanWeight> weightList = new ArrayList<>();
+        int total = 0;
+
+        for (Map.Entry<String, Integer> entry : ridWeight.entrySet()) {
+            String rid = entry.getKey();
+            Integer weight = entry.getValue();
+            total += weight;
+
+            String name = this.getMealPlanMeta().getRestaurantMap().get(rid).getName();
+            weightList.add(new MealPlanWeight(rid, name, weight));
+        }
+        weightList.sort(Comparator.comparing(o -> o.restaurantId));
+        stats.restaurants = weightList;
+        stats.total = total;
+        return stats;
+    }
+
+    public static class MealPlanStats {
+        public List<MealPlanWeight> restaurants;
+        public Integer total;
+    }
+
+    public static class MealPlanWeight {
+        public String restaurantId;
+        public String name;
+        public Integer weight;
+
+        public MealPlanWeight(String restaurantId, String name, Integer weight) {
+            this.restaurantId = restaurantId;
+            this.name = name;
+            this.weight = weight;
+        }
     }
 }

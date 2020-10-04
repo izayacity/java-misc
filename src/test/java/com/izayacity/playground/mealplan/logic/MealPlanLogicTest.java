@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * CreatedBy:   Francis Xirui Yang
@@ -53,6 +53,10 @@ class MealPlanLogicTest {
         List<MealPlan> mealPlans = this.mealPlanLogic.allMealPlans(84, 8, 5);
         System.out.println("mealPlans:");
         this.display(mealPlans);
+
+        MealPlanLogic.MealPlanStats stats = this.mealPlanLogic.mealPlansStats(mealPlans);
+        System.out.println("Restaurants stats:");
+        display(stats);
     }
 
     @Test

@@ -3,8 +3,10 @@ package com.izayacity.playground.mealplan.model;
 /**
  * CreatedBy:   Francis Xirui Yang
  * Date:        4/27/20
- * mailto:      xiruiyang@hiretual.com
+ * mailto:      izayacity@gmail.com
  * version:     1.0 since 1.0
+ *
+ * @author francis
  */
 public class Nutrition {
 

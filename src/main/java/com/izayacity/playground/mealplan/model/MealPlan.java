@@ -7,8 +7,10 @@ import java.util.Comparator;
 /**
  * CreatedBy:   Francis Xirui Yang
  * Date:        4/26/20
- * mailto:      xiruiyang@hiretual.com
+ * mailto:      izayacity@gmail.com
  * version:     1.0 since 1.0
+ *
+ * @author francis
  */
 public class MealPlan {
 
@@ -51,7 +53,7 @@ public class MealPlan {
         return this.nutrition.getEnergy() <= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
                 this.nutrition.getVitamin() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
                 this.nutrition.getAmount() >= MealPlanDomain.NutritionIndex.MEDIUM.getValue() * 2 &&
-                !this.meal0.getRestaurantId().equals(this.meal1.getRestaurantId());
+                this.nutrition.getAmount() < MealPlanDomain.NutritionIndex.HIGH.getValue() * 2;
     }
 
     public float getTotalCost() {

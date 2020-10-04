@@ -145,7 +145,7 @@
                 <meals>
                     <item index="0" id="B0900" weight="5" price="72.0" staple="1" category="10" energy="0" protein="2"
                           vitamin="2" amount="1" name="黑椒牛柳Burrito"/>
-                    <item index="1" id="B0901" weight="5" price="63.0" staple="1" category="10" energy="0" protein="2"
+                    <item index="1" id="B0901" weight="5" price="63.0" staple="1" category="10" energy="1" protein="2"
                           vitamin="2" amount="0" name="炸鱼排Taco"/>
                 </meals>
                 <pricing>
@@ -158,15 +158,9 @@
                 <meals>
                     <item index="0" id="B1000" weight="2" price="34.80" staple="0" category="9" energy="0" protein="2"
                           vitamin="2" amount="2" name="五花肉鱼籽拌饭"/>
-                    <item index="1" id="B1001" weight="2" price="34.80" staple="0" category="9" energy="0" protein="2"
-                          vitamin="2" amount="2" name="韩式五花肉拌饭"/>
-                    <item index="2" id="B1002" weight="2" price="35.80" staple="0" category="9" energy="0" protein="2"
-                          vitamin="2" amount="2" name="烤牛肉鱼籽拌饭"/>
-                    <item index="3" id="B1003" weight="2" price="35.80" staple="0" category="9" energy="0" protein="2"
+                    <item index="1" id="B1001" weight="2" price="35.80" staple="0" category="9" energy="0" protein="2"
                           vitamin="2" amount="2" name="韩式烤牛肉拌饭"/>
-                    <item index="4" id="B1004" weight="2" price="34.80" staple="0" category="9" energy="0" protein="2"
-                          vitamin="2" amount="2" name="韩式梅花肉拌饭"/>
-                    <item index="5" id="B1005" weight="2" price="34.80" staple="0" category="9" energy="0" protein="2"
+                    <item index="2" id="B1002" weight="2" price="34.80" staple="0" category="9" energy="0" protein="2"
                           vitamin="2" amount="2" name="韩式八爪鱼拌饭"/>
                 </meals>
                 <pricing>
@@ -239,9 +233,7 @@
                 <meals>
                     <item index="0" id="B1600" weight="4" price="49.0" staple="1" category="6" energy="2" protein="2"
                           vitamin="1" amount="2" name="爆浆马苏里拉芝士堡"/>
-                    <item index="1" id="B1601" weight="4" price="49.0" staple="1" category="6" energy="2" protein="2"
-                          vitamin="1" amount="2" name="爆浆车达芝士堡"/>
-                    <item index="2" id="B1602" weight="4" price="65.0" staple="1" category="6" energy="2" protein="2"
+                    <item index="1" id="B1601" weight="4" price="65.0" staple="1" category="6" energy="2" protein="2"
                           vitamin="2" amount="2" name="爆浆马苏里拉芝士堡套餐"/>
                 </meals>
                 <pricing>

@@ -260,9 +260,6 @@ public class MealPlanLogic {
         Graph<String> graph = new Graph<>(graphEdges, true);
         List<Graph.EdgeInfo<String>> mst = graph.kruskalMst();
 
-        System.out.println("mealIdsMst:");
-        display(mst);
-
         for (Graph.EdgeInfo<String> edgeInfo : mst) {
             mealIdList.add(new String[]{edgeInfo.getSrc(), edgeInfo.getDest()});
         }

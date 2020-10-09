@@ -88,4 +88,10 @@ public class MealPlan {
     public void setIndex(Integer index) {
         this.index = index;
     }
+
+    public void doSwap() {
+        MealModel modelTmp = this.meal1;
+        this.meal1 = this.meal0;
+        this.meal0 = modelTmp;
+    }
 }

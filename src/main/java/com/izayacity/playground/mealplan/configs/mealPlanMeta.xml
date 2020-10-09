@@ -209,8 +209,6 @@
                           vitamin="1" amount="2" name="夏威夷10英寸"/>
                     <item index="2" id="B1402" weight="4" price="58.0" staple="1" category="5" energy="2" protein="2"
                           vitamin="1" amount="2" name="布鲁克林10英寸"/>
-                    <item index="3" id="B1403" weight="2" price="55.0" staple="1" category="5" energy="2" protein="2"
-                          vitamin="1" amount="2" name="BBQ鸡肉10英寸"/>
                 </meals>
                 <pricing>
                 </pricing>
@@ -230,7 +228,7 @@
             <restaurant index="16" name="THU-48" packaging="1.0">
                 <meals>
                     <item index="0" id="B1600" weight="4" price="49.0" staple="1" category="6" energy="2" protein="2"
-                          vitamin="1" amount="2" name="爆浆马苏里拉芝士堡"/>
+                          vitamin="1" amount="1" name="爆浆马苏里拉芝士堡"/>
                     <item index="1" id="B1601" weight="4" price="65.0" staple="1" category="6" energy="2" protein="2"
                           vitamin="2" amount="2" name="爆浆马苏里拉芝士堡套餐"/>
                 </meals>

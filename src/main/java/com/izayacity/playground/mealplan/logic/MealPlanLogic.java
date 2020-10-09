@@ -96,7 +96,14 @@ public class MealPlanLogic {
         List<MealPlan> reOrderedMealPlans = this.reOrderMealPlans(mstMealPlans);
 
         for (int i = 0; i < reOrderedMealPlans.size(); i++) {
-            reOrderedMealPlans.get(i).setIndex(i);
+            MealPlan mealPlan = reOrderedMealPlans.get(i);
+            mealPlan.setIndex(i);
+            String mealId0 = mealPlan.getMeal0().getId();
+            String mealId1 = mealPlan.getMeal1().getId();
+
+            if (this.mealPlanMeta.getMealMap().get(mealId0).getAmount() < this.mealPlanMeta.getMealMap().get(mealId1).getAmount()) {
+                mealPlan.doSwap();
+            }
         }
         return reOrderedMealPlans;
     }

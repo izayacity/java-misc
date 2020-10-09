@@ -47,9 +47,7 @@
             </restaurant>
             <restaurant index="2" name="汉堡王" packaging="0.5">
                 <meals>
-                    <item index="0" id="B0200" weight="4" price="45.0" staple="1" category="6" energy="1" protein="2"
-                          vitamin="1" amount="2" name="黄金鳕鱼皇堡套餐"/>
-                    <item index="1" id="B0201" weight="4" price="37.0" staple="1" category="6" energy="1" protein="2"
+                    <item index="1" id="B0200" weight="4" price="37.0" staple="1" category="6" energy="1" protein="2"
                           vitamin="1" amount="2" name="狠霸王鱼堡套餐"/>
                 </meals>
                 <pricing>
@@ -255,10 +253,12 @@
             </restaurant>
             <restaurant index="18" name="村上一屋" packaging="3.0">
                 <meals>
-                    <item index="0" id="B1800" weight="4" price="56.0" staple="2" category="7" energy="0" protein="2"
-                          vitamin="1" amount="1" name="大份烤三文鱼紫薯卷+小份芒果大虾卷"/>
-                    <item index="1" id="B1801" weight="4" price="46.0" staple="2" category="7" energy="0" protein="2"
-                          vitamin="2" amount="1" name="牛油果黄瓜卷+章鱼小丸子"/>
+                    <item index="0" id="B1800" weight="4" price="63.0" staple="0" category="7" energy="0" protein="2"
+                          vitamin="2" amount="2" name="大份芒果大虾卷+牛油果黄瓜卷"/>
+                    <item index="1" id="B1801" weight="4" price="59.0" staple="0" category="7" energy="0" protein="2"
+                          vitamin="2" amount="2" name="一人份精品鳗鱼饭套餐"/>
+                    <item index="2" id="B1802" weight="4" price="66.0" staple="0" category="7" energy="0" protein="2"
+                          vitamin="2" amount="2" name="章鱼小丸子+小份烤三文鱼紫薯卷+牛油果黄瓜卷"/>
                 </meals>
                 <pricing>
                     <item index="0" condition="60" discount="25"/>

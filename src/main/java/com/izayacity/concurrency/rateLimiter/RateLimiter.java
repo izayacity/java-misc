@@ -1,22 +1,22 @@
 package com.izayacity.concurrency.rateLimiter;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class RateLimiter {
 
     private long capacity;
-
-    private long lastRefillTimeStamp;
-
     private long refillCountPerSecond;
-
-    private long availableTokens;
+    private volatile long lastRefillTimeStamp;
+    private volatile long availableTokens;
+    private final Lock lock = new ReentrantLock();
 
     public RateLimiter(long capacity, long windowTimeInSeconds) {
         this.capacity = capacity;
-        lastRefillTimeStamp = System.currentTimeMillis();
-        refillCountPerSecond = capacity / windowTimeInSeconds;
-        availableTokens = 0;
+        this.lastRefillTimeStamp = System.currentTimeMillis();
+        this.refillCountPerSecond = capacity / windowTimeInSeconds;
+        this.availableTokens = 0;
     }
 
     public long getAvailableTokens() {
@@ -26,33 +26,44 @@ public class RateLimiter {
     public boolean tryConsume() {
         refill();
 
-        if (availableTokens > 0) {
-            --availableTokens;
-            return true;
-        } else {
+        if (this.availableTokens <= 0) {
             return false;
+        }
+        synchronized (this.lock) {
+            if (this.availableTokens <= 0) {
+                return false;
+            }
+            --this.availableTokens;
+            return true;
         }
     }
 
     private void refill() {
         long now = System.currentTimeMillis();
-        if (now > lastRefillTimeStamp) {
-            long elapsedTime = now - lastRefillTimeStamp;
-            // refill tokens for this duration
-            long tokensToBeAdded = (elapsedTime / 1000) * refillCountPerSecond;
-            if (tokensToBeAdded > 0) {
-                availableTokens = Math.min(capacity, availableTokens + tokensToBeAdded);
-                lastRefillTimeStamp = now;
+        if (now <= this.lastRefillTimeStamp) {
+            return;
+        }
+        synchronized (this.lock) {
+            if (now > this.lastRefillTimeStamp) {
+                long elapsedTime = now - this.lastRefillTimeStamp;
+                // refill tokens for this duration
+                long tokensToBeAdded = (elapsedTime / 1000) * this.refillCountPerSecond;
+                if (tokensToBeAdded > 0) {
+                    this.availableTokens = Math.min(this.capacity, this.availableTokens + tokensToBeAdded);
+                    this.lastRefillTimeStamp = now;
+                }
             }
         }
     }
 
     public static void main(String[] args) {
         RateLimiter limiter = new RateLimiter(2, 2);
+        int sleepMillis = 100;
+
         Runnable producer = () -> {
             for (int i = 0; i < 100; i++) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(sleepMillis);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -63,7 +74,7 @@ public class RateLimiter {
         Runnable consumer = () -> {
             for (int i = 0; i < 100; i++) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(sleepMillis);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

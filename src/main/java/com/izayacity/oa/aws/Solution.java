@@ -18,6 +18,21 @@ public class Solution {
     // Optimal Utilization
     // https://leetcode.com/discuss/interview-question/373202
     // NlgN
+    // Given 2 lists a and b. Each element is a pair of integers where the first integer represents
+    // the unique id and the second integer represents a value. Your task is to find an element from
+    // a and an element form b such that the sum of their values is less or equal to target and as
+    // close to target as possible. Return a list of ids of selected elements. If no pair is possible,
+    // return an empty list.
+    //1. Input:
+    //a = [[1, 2], [2, 4], [3, 6]]
+    //b = [[1, 2]]
+    //target = 7
+    //Output: [[2, 1]]
+    //2. Input:
+    //a = [[1, 3], [2, 5], [3, 7], [4, 10]]
+    //b = [[1, 2], [2, 3], [3, 4], [4, 5]]
+    //target = 10
+    //Output: [[2, 4], [3, 2]]
     public List<int[]> getPairs(List<int[]> a, List<int[]> b, int target) {
         a.sort((i, j) -> i[1] - j[1]);
         b.sort(Comparator.comparingInt(i -> i[1]));
@@ -71,6 +86,24 @@ public class Solution {
     // Treasure Island
     // https://leetcode.com/discuss/interview-question/347457
     // https://leetcode.com/discuss/interview-question/347457/Amazon-or-OA-2019-or-Treasure-Island
+    //Time complexity: O(r * c).
+    //Space complexity: O(r * c).
+    //You have a map that marks the location of a treasure island. Some of the map area has jagged rocks and
+    //dangerous reefs. Other areas are safe to sail in. There are other explorers trying to find the treasure.
+    //So you must figure out a shortest route to the treasure island.
+    //Assume the map area is a two dimensional grid, represented by a matrix of characters. You must start from
+    //the top-left corner of the map and can move one block up, down, left or right at a time. The treasure
+    //island is marked as X in a block of the matrix. X will not be at the top-left corner. Any block with
+    //dangerous rocks or reefs will be marked as D. You must not enter dangerous blocks. You cannot leave the
+    //map area. Other areas O are safe to sail in. The top-left corner is always safe. Output the minimum number
+    //of steps to get to the treasure.
+    //Input:
+    //[['O', 'O', 'O', 'O'],
+    //['D', 'O', 'D', 'O'],
+    //['O', 'O', 'O', 'O'],
+    //['X', 'D', 'D', 'O']]
+    //Output: 5
+    //Explanation: Route is (0, 0), (0, 1), (1, 1), (2, 1), (2, 0), (3, 0) The minimum route takes 5 steps.
     public int minSteps(char[][] grid, int[][] starts) {
         Queue<Point> queue = new ArrayDeque<>();
         for (int[] start : starts) {
@@ -747,5 +780,34 @@ public class Solution {
             }
         }
         return minL1;
+    }
+    
+    /*
+*         char[][] matrix = new char[][] {
+        {
+            'm', 'n', 'e', 's', 'i', '_', '_'
+        },
+        {
+            '_', 'y', 'a', '_', '_', 'k', '_'
+        },
+        {
+            '_', '_', '_', 'm', 'i', 'm', 'e'
+        }
+    };
+    String res = decodeString(matrix);
+* */
+    public static String decodeString(char[][] matrix)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        int i = 0, j = 0, rows = matrix.length, cols = matrix[0].length;
+        while (!(i == 0 && j == cols - 1))
+        {
+
+            stringBuilder.append(matrix[i][j] == '_' ? ' ' : matrix[i][j]);
+            i = (i + 1) % rows;
+            j = (j + 1) % cols;
+        }
+
+        return stringBuilder.toString().trim();
     }
 }
